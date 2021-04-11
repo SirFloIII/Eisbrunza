@@ -3,8 +3,8 @@
 
 \usepackage{fullpage}
 \usepackage[utf8]{inputenc}
-%\usepackage[ngerman]{babel}
-\usepackage[english]{babel}
+\usepackage[ngerman]{babel}
+%\usepackage[english]{babel}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{latexsym}
@@ -28,7 +28,7 @@
 
 \begin{document}
 \author{Florian Bogner \& Alexander Palmrich}
-\title{Stochastische Prozesse - Übung x}
+\title{Stochastische Prozesse - Übung 3}
 \maketitle
 
 \begin{enumerate}
@@ -44,7 +44,36 @@
 \item bla
 
 %14
-\item bla
+\item
+\begin{enumerate}
+\item $Z = 1_{[1, 2)} W(1) + 1_{[2, 3)} W(2)$ ist eine Treppenfunktion mit 2 Treppen. Man beachte, die vermeintlich erste Treppe ist immer 0, da für $0 \leq t < 1$ gilt $W(\lfloor t\rfloor) = W(0) = 0$.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.66\textwidth]{gfx/14_fig.png}
+\caption{Ein typischer Pfad von $W$ und $Z$}
+\end{figure}
+
+\item Messbarkeitsbedingung: Der Funktionswert $\eta_j$ muss $\mathcal F(t_j)$-messbar sein, i.e. zu Beginn des Intervalls schon bekannt sein. Dies ist der Fall, da der Funktionswert ja der Wert des Wienerprozesses zu Beginn des Intervalls ist.
+
+Integrabilitätsbedingung: $\infty \stackrel{!}{>} E[\eta_j^2] = E[W(t_j)^2] = V[W(t_j)] = t_j < \infty$
+
+\item Stochastisches Integral für $M_{step}^2$:
+\begin{align*}
+Y(t) &= \int_0^t Z(s)dW(s) \\
+Y(2) &= W(1) \cdot (W(2) - W(1)) \\
+Y(3) &= W(1) \cdot (W(2) - W(1)) + W(2) \cdot (W(3) - W(2))
+\end{align*}
+
+\item Mit Baby-Itô-Isometrie:
+\begin{align*}
+E\left[Y(3)^2\right] &= E\left[\int_0^3 Z(s)^2 ~ds\right] \\
+&= E\left[\int_0^3 1_{[1, 2)} W(1)^2 + 1_{[2, 3)} W(2)^2 ~ds\right] \\
+&= E\left[W(1)^2 + W(2)^2\right] \\
+&= 1 + 2 = 3 \\
+\end{align*}
+
+\end{enumerate}
+
 
 %15
 \item Angenommen $W$ ist eine Brownsche Bewegung und $f: \R_+ \to \R$ ist eine beschränkte stetige Funktion und $0 \leq t_0 < t_1 < \cdots < t_n$. Welche Verteilung hat die Zufallsvariable
