@@ -1,0 +1,179 @@
+\documentclass[11pt,a4paper,fullpage]{article}
+\usepackage{fullpage}
+\usepackage[utf8]{inputenc}
+%\usepackage[ngerman]{babel}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hhline}
+\usepackage{amsthm}
+\usepackage{cite}
+\usepackage{wrapfig}
+\usepackage{hyperref}
+\usepackage{titling}
+\usepackage{color}
+
+\allowdisplaybreaks
+\setlength{\droptitle}{-60pt}
+
+
+\newcommand{\E}{\mathbb E}
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+
+\begin{document}
+\author{Florian Bogner}
+\title{Stochastische Prozesse - Übung 1}
+\maketitle
+
+\begin{enumerate}
+%1
+\item Wir wissen\footnote{AMStat Gurker, Satz 2.9}, dass wenn $\vec N \sim N_n\left(\vec\mu, \Sigma\right)$, $A \in \mathbb R^{m\times n}$ und $b \in \mathbb R^m$, so gilt für $\vec M := A \vec N + b$:
+\begin{align*}
+\vec M \sim N_m\left(A\vec\mu, A\Sigma A^T\right)
+\end{align*}
+Sei also
+\begin{align*}
+n := m &:= 2 \\
+\vec N &:= \left(X, Y\right)^T \\
+A &:= \frac{1}{\sqrt 2}\begin{pmatrix*}\left[r\right]
+1 & 1 \\
+1 & -1 
+\end{pmatrix*}
+\end{align*}
+Damit ist $\vec M := \left(U, V\right)^T = A\vec N$. Man beachte: $A \in O\left(2\right)$, also $AA^T = E$. Aus $\vec N \sim N_2\left(\vec 0, E\right)$ folgt nun
+\begin{align*}
+\vec M \sim N_2\left(A\vec 0, A E A^T\right) = N_2\left(\vec 0, E\right)\
+\end{align*}
+Daraus folgt\footnote{AMStat Gurker, Satz 2.10}, dass U und V unabhängig sind. \qed
+
+%2
+\item
+\begin{enumerate}
+\item Die momenterzeugende Funktion existiert für alle $h \in \R$:
+\begin{align*}
+\E\left[e^{hX}\right] &= \int e^{hX} ~dP \\
+&= \int_{-\infty}^\infty e^{hx} f\left(x\right) ~dx \\
+&= \int_{-\infty}^\infty e^{hx} \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2}} ~dx \\
+&= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^\infty e^{hx-\frac{x^2}{2}} ~dx \\
+&= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^\infty e^{\frac{1}{2} \left(h^2 - h^2 + 2hx - x^2\right)} ~dx \\
+&= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^\infty e^{\frac{1}{2} \left(h^2 - \left(h - x\right)^2\right)} ~dx \\
+&= \frac{e^{\frac{h^2}{2}}}{\sqrt{2\pi}} \int_{-\infty}^\infty e^{-\frac{y^2}{2}} ~dy  &y := x - h\\
+&= e^{\frac{h^2}{2}} \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}} e^{-\frac{y^2}{2}} ~dy  &dy = dx\\
+&= e^{\frac{h^2}{2}} \int_{-\infty}^\infty f\left(y\right) ~dy\\
+&= e^{\frac{h^2}{2}}
+\end{align*}
+\item Die Normalverteilung ergibt sich aus der Standardnormalverteilung: $Y = \sigma^2 X + \mu$. Daraus folgt:
+\begin{align*}
+\E\left[e^{hY}\right] &= \E\left[e^{h\mu + h\sigma^2 X}\right] \\
+&= e^{h\mu} \E\left[e^{h\sigma^2 X}\right] \\
+&= e^{h\mu} \E\left[e^{hX}\right]^{\sigma^2} \\
+&= e^{h\mu} e^{\frac{h^2}{2} \sigma^2} \\
+&= e^{h\mu + \frac{\sigma^2 h^2}{2}}
+\end{align*}
+\item Für die Konvergenz des auftretenden Integrals muss der Koeffizient von $x^2$ negativ bleiben, ergo $h < \frac{1}{2}$. Aus Substitution mit $y := \sqrt{1-2h}~x$ und $dx = \frac{1}{\sqrt{1-2h}}~dy$ folgt danach:
+\begin{align*}
+\E\left[e^{hX^2}\right] &= \int e^{hX^2} ~dP \\
+&= \int_{-\infty}^\infty e^{hx^2} f\left(x\right) ~dx \\
+&= \int_{-\infty}^\infty e^{hx^2} \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2}} ~dx \\
+&= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^\infty e^{\frac{\left(2h - 1\right)x^2}{2}} ~dx \\
+&= \frac{1}{\sqrt{2\pi}}\frac{1}{\sqrt{\left(1-2h\right)}} \int_{-\infty}^\infty e^{\frac{-y^2}{2}} ~dy \\
+&= \frac{1}{\sqrt{\left(1-2h\right)}}
+\end{align*}
+\end{enumerate}
+
+%3
+\item Aus der VO wissen wir, dass $Cov\left[W\left(a\right), W\left(b\right)\right] = min\left(a,b\right)$. Die Covarianz ist bilinear, deshalb gilt:
+\begin{align*}
+&~~~~Cov\left[W\left(t\right) - W\left(s\right), W\left(v\right) - W\left(u\right)\right]\\
+&= Cov\left[W\left(t\right), W\left(v\right)\right] - Cov\left[W\left(s\right), W\left(v\right)\right] - Cov\left[W\left(t\right), W\left(u\right)\right] + Cov\left[W\left(s\right), W\left(u\right)\right] \\
+&= t - s - u + s \\
+&= t - u
+\end{align*}
+
+%4
+\item $W$ ist ein Wienerprozess genau dann wenn:
+\begin{itemize}
+\item $W\left(0\right) = 0$
+\item $t \mapsto W\left(t\right)$ f.s. stetig
+\item $t_1 < \hdots < t_n \Rightarrow
+\begin{pmatrix*}
+W\left(t_1\right) - W\left(0\right) \\
+W\left(t_2\right) - W\left(t_1\right) \\
+\vdots \\
+W\left(t_n\right) - W\left(t_{n-1}\right) \\
+\end{pmatrix*} \sim N_n\left(\vec 0, diag\left(t_1, t_2-t_1, \hdots, t_n - t_{n-1}\right)\right)$
+\end{itemize}
+Für $B$ gilt nun:
+\begin{itemize}
+\item $B\left(0\right) = W\left(1-0\right) - W\left(1\right) = 0$
+\item $t \mapsto 1 - t$ ist stetig, Komposition von f.s. stetigen Funktionen ist f.s. stetig, Subtraktion von $W\left(1\right)$ ist stetig, also $t \mapsto B\left(t\right)$ f.s. stetig
+\item Für die Inkremente von $B$ gilt:
+\begin{align*}
+B\left(t_{i+1}\right) - B\left(t_i\right) &= W\left(1 - t_{i+1}\right) - W\left(1\right) - W\left(1 - t_i\right) + W\left(1\right) \\
+&= - \left(W\left(1 - t_i\right) - W\left(1 - t_{i+1}\right)\right) \sim N\left(0, 1 - t_i - 1 + t_{i+1}\right) \\
+&\hspace{148pt}\sim N\left(0, t_{i+1} - t_i\right)
+\end{align*}
+Die Inkremente von $B$ sind also Dekremente von $W$, welche wegen Symmetrie ebenfalls normalverteilt sind. Mehrdimensional betrachtet:
+\begin{align*}
+\begin{pmatrix*}
+B\left(t_1\right) - B\left(0\right) \\
+B\left(t_2\right) - B\left(t_1\right) \\
+\vdots \\
+B\left(t_n\right) - B\left(t_{n-1}\right) \\
+\end{pmatrix*} &= -
+\begin{pmatrix*}
+W\left(1-t_1\right) - W\left(1\right) \\
+W\left(1-t_2\right) - W\left(1-t_1\right) \\
+\vdots \\
+W\left(1-t_n\right) - W\left(1-t_{n-1}\right) \\
+\end{pmatrix*} \\
+&\sim N_n\left(\vec 0, diag\left(t_1, t_2-t_1, \hdots, t_n - t_{n-1}\right)\right)
+\end{align*}
+\end{itemize}
+Daraus folgt, das $B$ selbst wieder ein Wienerprozess ist und damit die endlichdimensionalen Verteilungen von Folie 15 hat.
+
+%5
+\item
+\begin{enumerate}
+\item Aus Definiton des Wiener-Prozesses folgt, dass $W\left(t\right) - W\left(s\right) \sim N\left(0,t-s\right)$ und $W\left(s\right) \sim N\left(0,s\right)$, sowie dass die beiden unabhängig sind. Damit ergibt sich elementar:
+\begin{align*}
+\E\left[W\left(t\right)\right] = \E\left[W\left(s\right)\right] &= 0 \\
+\E\left[W\left(s\right)^2\right] &= \E\left[W\left(s\right)^2\right] - \E\left[W\left(s\right)\right]^2 \\
+&= \mathbb V\left[W\left(s\right)\right] = s \\
+\E\left[W\left(t\right)W\left(s\right)\right] &= \E\left[\left(W\left(t\right)-W\left(s\right)\right)W\left(s\right) + W\left(s\right)^2\right] \\
+&= \E\left[W\left(t\right)-W\left(s\right)\right] \cdot \E\left[W\left(s\right)\right] + \E\left[W\left(s\right)^2\right] \\
+&= 0 \cdot 0 + s = s
+\end{align*}
+\item Umformen:
+\begin{align*}
+f\left(c_0, c_1\right) &= \E\left[\left(W\left(t\right) - c_0 W\left(r\right) - c_1 W\left(s\right)\right)^2\right] \\
+&= \E\Big[W\left(t\right)^2  + c_0^2 W\left(r\right)^2 + c_1^2 W\left(s\right)^2 \hdots \\ &\hspace{60pt} \hdots - 2c_0W\left(t\right)W\left(r\right) - 2c_1W\left(t\right)W\left(s\right) + 2c_0c_1W\left(r\right)W\left(s\right)\Big] \\
+&= t + c_0^2r + c_1^2s - 2c_0r - 2c_1s + 2c_0c_1r \\
+&= t + \left(c_1^2 - 2c_1\right)s + \left(c_0^2 - 2c_0 + 2c_0c_1\right)r \\
+&= \left(t-s\right) + \left(c_1^2 - 2c_1 + 1\right)s + \left(c_0^2 - 2c_0 + 2c_0c_1\right)r \\
+&= \left(t-s\right) + \left(c_1^2 - 2c_1 + 1\right)\left(s-r\right) + \left(1 + c_0^2 + c_1^2 - 2c_0 - 2c_1 + 2c_0c_1\right)r \\
+&= \left(t-s\right) + \left(1 - c_1\right)^2\left(s-r\right) + \left(1 - c_0 - c_1\right)^2r
+\end{align*}
+Der erste Summand ist unabhängig von $c_0$ und $c_1$. Die beiden anderen Summanden sind Produkte von positiven Faktoren. Sie werden also minimal, wenn einer der Faktoren null wird. Ergo:
+\begin{align*}
+c_0^* &= 0 \\
+c_1^* &= 1
+\end{align*}
+
+\item Oben einsetzen ergibt:
+\begin{align*}
+f\left(c_0^*, c_1^*\right) = f\left(0,1\right) = t-s
+\end{align*} 
+\end{enumerate}
+
+
+\end{enumerate}
+\end{document}
