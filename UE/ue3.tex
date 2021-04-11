@@ -24,6 +24,7 @@
 
 \setlength{\droptitle}{-60pt}
 
+\newcommand{\R}{\mathbb R}
 
 \begin{document}
 \author{Florian Bogner \& Alexander Palmrich}
@@ -46,7 +47,23 @@
 \item bla
 
 %15
-\item bla
+\item Angenommen $W$ ist eine Brownsche Bewegung und $f: \R_+ \to \R$ ist eine beschränkte stetige Funktion und $0 \leq t_0 < t_1 < \cdots < t_n$. Welche Verteilung hat die Zufallsvariable
+\begin{align*}
+U = \sum_{k=1}^n f(t_{k-1})\Delta W(t_k)
+\end{align*}
+Die vorkommenden Inkremente von $W$ sind bekanntlich unabhängig normalverteilt, i.e. $\Delta W(t_k) \sim N(0, t_k - t_{k-1})$. Demnach ist $U$ eine Linearkombination aus Normalverteilungen und nach dem Reproduktionssatz wieder eine Normalverteilung. Mit
+\begin{align*}
+A &:= (f(t_0), f(t_1), \cdots, f(t_{n-1}) \in \R^{1\times n} \\
+\mu &:= (0, 0, \cdots, 0)^T \in R^n \\
+\sigma &:= diag(t_1 - t_0, t_2 - t_1, \cdots, t_n - t_{n-1}) \in \R^{n\times n}
+\end{align*}
+folgt:
+\begin{align*}
+U &\sim N\left(A\mu, A^T \sigma A\right) \\
+&\sim N\left(0, \sum_{k=1}^n f(t_{k-1})^2(t_k - t_{k-1})\right)
+\end{align*}
+Erwartungswert und Varianz stehen damit schon da.
+
 
 \end{enumerate}
 
