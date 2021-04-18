@@ -58,27 +58,30 @@ Desweiteren:
 &= \Ee{\left(\int_0^1 Y(s) dW(s)  \right)^2} \\
 &= \Ee{\int_0^1 Y(s)^2  ds} &\text{Itô-Isometrie} \\
 &= 1^3 + 3\cdot1^2 + 1  &\text{Siehe oben} \\
-&= 5
+&= 5 &\square
 \end{align*}
-
 
 %17
 \item
 Mittels Praxistipps auf VO5, Folie 10 berechnen wir ein paar Hilfsterme:
 \begin{align*}
-\sigma_X^2 &:= \Vv{X(t)} \\
-&= \Ee{X(t)^2} \\
+\Vv{X(t)} &= \Ee{X(t)^2} \\
 &= \Ee{\int_0^t \sin(s)^2 ds} &\text{Itô-Isometrie} \\
 &= \frac{t-\sin(t)\cos(t)}{2} &\text{deterministischer Erw.} \\
-\sigma_Y^2 &:= \Vv{Y(t)} \\
-&= \frac{t+\sin(t)\cos(t)}{2} &\text{analog}
+\Vv{Y(t)} &= \frac{t+\sin(t)\cos(t)}{2} &\text{analog}\\
+\end{align*}
+\begin{align*}
+\Cov{X(t), Y(t)} &= \Ee{X(t) Y(t)}\\
+&= \Ee{I_t (\sin) \cdot I_t (\cos)}\\
+&= \Ee{\int_0^t \sin \cdot \cos ds}&\text{Itô-Isometrie} \\
+&= \frac{\sin^2t}{2} &\text{deterministischer Erw.} \\
 \end{align*}
 
 Damit folgt nun
 \begin{align*}
 \rho(X(t), Y(t)) &= \frac{\Cov{X(t), Y(t)}}{\sqrt{\Vv{X(t)}\Vv{Y(t)}}} \\
-&= \frac{\Ee{X(t) Y(t)}}{\sqrt{ \frac{t^2 - \sin(t)^2\cos(t)^2}{4} }} \\
-&= 2 \frac{\Ee{X(t) Y(t)}}{\sqrt{ t^2 - \sin(t)^2\cos(t)^2}} \\
+&= \frac{\frac{\sin^2t}{2}}{\sqrt{ \frac{t^2 - \sin(t)^2\cos(t)^2}{4} }} \\
+&= \frac{\sin^2t}{\sqrt{ t^2 - \sin(t)^2\cos(t)^2}}  &\square\\
 \end{align*}
 
 
