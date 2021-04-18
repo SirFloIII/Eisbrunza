@@ -27,8 +27,12 @@
 
 \newcommand{\R}{\mathbb R}
 \newcommand{\E}{\mathbb E}
+\newcommand{\Ee}[1]{\mathbb E\left[#1\right]}
 \newcommand{\V}{\mathbb V}
+\newcommand{\Vv}[1]{\mathbb V\left[#1\right]}
+\newcommand{\Cov}[1]{\mathbb Cov\left[#1\right]}
 \newcommand{\ind}{\mathbbm{1}}
+\newcommand{\indd}[1]{\mathbbm{1}_{#1}}
 
 \begin{document}
 \author{Florian Bogner \& Alexander Palmrich}
@@ -40,27 +44,41 @@
 
 %16
 \item Laut VO 5, Folie 13 gilt $\E(\int_0^T Y(t)^2 dt) < \infty \Rightarrow Y \in M_T^2$. Wir wollen also die Vorraussetzung zeigen:
+
 \begin{align*}
-\E\left(\int_0^T Y(t)^2 dt\right) &= \E\left(\int_0^T (W(t)-1)^4 dt\right) \\
-&= \E\left(\int_0^T W(t)^4 + 4W(t)^3 + 6W(t)^2 + 4W(t) + 1 dt\right) \\
-&= \int_0^T \E(W(t)^4) + 4\E(W(t)^3) + 6\E(W(t)^2) + 4\E(W(t)) + 1 dt &\text{Fubini\footnote{Der übliche Trick, wir vertauschen erst unbegründet, sehen es kommt nicht unendlich heraus und wissen dadurch, dass das Vertauschen gerechtfertigt war.}} \\
+\Ee{\int_0^T Y(t)^2 dt} &= \Ee{\int_0^T (W(t)-1)^4 dt} \\
+&= \Ee{\int_0^T W(t)^4 + 4W(t)^3 + 6W(t)^2 + 4W(t) + 1 dt} \\
+&= \int_0^T \Ee{W(t)^4} + 4\Ee{W(t)^3} + 6\Ee{W(t)^2} + 4\Ee{W(t)} + 1 dt &\text{Fubini\footnote{Der übliche Trick, wir vertauschen erst unbegründet, sehen es kommt nicht unendlich heraus und wissen dadurch, dass das Vertauschen gerechtfertigt war.}} \\
 &= \int_0^T 3t^2 + 0 + 6t + 0 + 1 dt \\
 &= T^3 + 3T^2 + T < \infty &\text{für $T < \infty$}
 \end{align*}
 Desweiteren:
 \begin{align*}
-\V(Z(1)) &= \E(Z(1)^2) &\text{Folie 10, (25)} \\
-&= \E\left(   \left(\int_0^1 Y(s) dW(s)  \right)^2  \right) \\
-&= \E\left(  \int_0^1 Y(s)^2  ds  \right) &\text{Itô-Isometrie} \\
+\Vv{Z(1)} &= \Ee{Z(1)^2} &\text{Folie 10, (25)} \\
+&= \Ee{\left(\int_0^1 Y(s) dW(s)  \right)^2} \\
+&= \Ee{\int_0^1 Y(s)^2  ds} &\text{Itô-Isometrie} \\
 &= 1^3 + 3\cdot1^2 + 1  &\text{Siehe oben} \\
 &= 5
 \end{align*}
 
 
 %17
-Mittels Praxistipps auf VO5, Folie 10:
+\item
+Mittels Praxistipps auf VO5, Folie 10 berechnen wir ein paar Hilfsterme:
 \begin{align*}
-\rho(X(t), Y(t)) &= 
+\sigma_X^2 &:= \Vv{X(t)} \\
+&= \Ee{X(t)^2} \\
+&= \Ee{\int_0^t \sin(s)^2 ds} &\text{Itô-Isometrie} \\
+&= \frac{t-\sin(t)\cos(t)}{2} &\text{deterministischer Erw.} \\
+\sigma_Y^2 &:= \Vv{Y(t)} \\
+&= \frac{t+\sin(t)\cos(t)}{2} &\text{analog}
+\end{align*}
+
+Damit folgt nun
+\begin{align*}
+\rho(X(t), Y(t)) &= \frac{\Cov{X(t), Y(t)}}{\sqrt{\Vv{X(t)}\Vv{Y(t)}}} \\
+&= \frac{\Ee{X(t) Y(t)}}{\sqrt{ \frac{t^2 - \sin(t)^2\cos(t)^2}{4} }} \\
+&= 2 \frac{\Ee{X(t) Y(t)}}{\sqrt{ t^2 - \sin(t)^2\cos(t)^2}} \\
 \end{align*}
 
 
