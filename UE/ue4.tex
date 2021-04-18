@@ -107,7 +107,7 @@ Also gilt nun:
 \begin{align*}
 \xi(T) &= F(T, W(T)) \\
 &= F(0, W(0)) + \int_0^T F_t(t, W(t)) + \frac{1}{2} F_{xx}(t, W(t)) dt + \int_0^T F_x(t, W(t) dW(t) \\
-&= S_0 + \int_0^T \mu F(t, W(t)) dt + \int_0^T \sigma F(t, W(t)) dW(t) \text{ ist Itô-Prozess.}
+&= S_0 + \int_0^T \mu F(t, W(t)) dt + \int_0^T \sigma F(t, W(t)) dW(t) \text{ ist Itô-Prozess.}&\square
 \end{align*}
 
 %19
@@ -130,8 +130,11 @@ Dementsprechend ist $\xi$ ein Itô-Prozess.
 \begin{align*}
 \xi(T) &= F(T, W(T)) \\
 &= F(0, W(0)) + \int_0^T F_t(t, W(t)) + \frac{1}{2} F_{xx}(t, W(t)) dt + \int_0^T F_x(t, W(t) dW(t) \\
-&= 1 + \int_0^T (x + \frac{t^2}{2}) e^{tx} dt + \int_0^T t e^{tx} dW(t)
+&= 1 + \int_0^T (W(t) + \frac{t^2}{2}) e^{tW(t)} dt + \int_0^T t e^{tW(t)} dW(t)&\square
 \end{align*}
+
+%20
+\item TODO Bsp 20
 
 
 \end{enumerate}
