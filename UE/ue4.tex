@@ -44,7 +44,6 @@
 
 %16
 \item Laut VO 5, Folie 13 gilt $\E(\int_0^T Y(t)^2 dt) < \infty \Rightarrow Y \in M_T^2$. Wir wollen also die Vorraussetzung zeigen:
-
 \begin{align*}
 \Ee{\int_0^T Y(t)^2 dt} &= \Ee{\int_0^T (W(t)-1)^4 dt} \\
 &= \Ee{\int_0^T W(t)^4 + 4W(t)^3 + 6W(t)^2 + 4W(t) + 1 dt} \\
@@ -63,8 +62,7 @@ Desweiteren:
 
 
 %17
-\item
-Mittels Praxistipps auf VO5, Folie 10 berechnen wir ein paar Hilfsterme:
+\item Mittels Praxistipps auf VO5, Folie 10 berechnen wir ein paar Hilfsterme:
 \begin{align*}
 \sigma_X^2 &:= \Vv{X(t)} \\
 &= \Ee{X(t)^2} \\
@@ -78,11 +76,35 @@ Damit folgt nun
 \begin{align*}
 \rho(X(t), Y(t)) &= \frac{\Cov{X(t), Y(t)}}{\sqrt{\Vv{X(t)}\Vv{Y(t)}}} \\
 &= \frac{\Ee{X(t) Y(t)}}{\sqrt{ \frac{t^2 - \sin(t)^2\cos(t)^2}{4} }} \\
-&= 2 \frac{\Ee{X(t) Y(t)}}{\sqrt{ t^2 - \sin(t)^2\cos(t)^2}} \\
+&= 2 \frac{\Ee{X(t) Y(t)}}{\sqrt{ t^2 - \sin(t)^2\cos(t)^2}}
 \end{align*}
 
-
-
+%18
+\item Wir überprüfen die Voraussetzungen aus VO 5, Folie 30.
+\begin{align*}
+F(t, x) &= S_0 \exp\left(\left(\mu - \frac{\sigma^2}{2}\right)t + \sigma x\right) \\
+F_t(t, x) &= S_0 \exp\left(\left(\mu - \frac{\sigma^2}{2}\right)t + \sigma x\right) \cdot \left(\mu - \frac{\sigma^2}{2}\right) = \left(\mu - \frac{\sigma^2}{2}\right) F(t, x)\\
+F_x(t, x) &= S_0 \sigma \exp\left(\left(\mu - \frac{\sigma^2}{2}\right)t + \sigma x\right) = \sigma F(t, x) \\
+F_{xx}(t, x) &= S_0 \sigma^2 \exp\left(\left(\mu - \frac{\sigma^2}{2}\right)t + \sigma x\right) = \sigma^2 F(t, x)
+\end{align*}
+Es muss gelten, dass $(F_x(t, W(t)), t \geq 0) \in M_T^2$ für alle $T > 0$. Beweis wie in 16):
+\begin{align*}
+\Ee{\int_0^T F_x(t, W(t))^2 dt} &= \Ee{\int_0^T \sigma^2 S_0^2 \exp(2(\mu - \frac{\sigma^2}{2}) t) \cdot \exp(2\sigma W(t)) dt} \\
+&\leq  \sigma^2 S_0^2 \|\exp(2(\mu - \frac{\sigma^2}{2}) t)\|_{L_\infty[0, T]} \Ee{\int _0^T \exp(2\sigma W(t)) dt} \\
+&= c \cdot \Ee{\int _0^T \exp(2\sigma W(t)) dt} &c < \infty
+\end{align*}
+Aus AmStat wissen wir: Wenn $X\sim N(\mu, \sigma^2)$, dann $e^X \sim LogN(\mu, \sigma^2)$ und $\Ee{e^X} = exp(\mu + \frac{\sigma^2}{2})$. In unserem Fall: $2\sigma W(t) \sim N(0, 4\sigma^2 t)$ und damit $\Ee{e^{2\sigma W(t)}} =  exp(2\sigma^2 t)$. Wieder mit spekulativem Fubini-Trick folgt also:
+\begin{align*}
+c \cdot \Ee{\int _0^T \exp(2\sigma W(t)) dt} &= c \int _0^T \Ee{\exp(2\sigma W(t))} dt \\
+&= c \int _0^T exp(2\sigma^2 t) dt \\
+&= c \frac{e^{2\sigma^2 T}-1}{2\sigma^2} < \infty
+\end{align*}
+Also gilt nun:
+\begin{align*}
+\xi(T) &= F(T, W(T)) \\
+&= F(0, W(0)) + \int_0^T F_t(t, W(t)) + \frac{1}{2} F_{xx}(t, W(t)) dt + \int_0^T F_x(t, W(t) dW(t) \\
+&= S_0 + \int_0^T \mu F(t, W(t)) dt + \int_0^T \sigma F(t, W(t)) dW(t) \text{ ist Itô-Prozess.}
+\end{align*}
 
 
 
