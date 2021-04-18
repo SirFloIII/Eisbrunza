@@ -43,12 +43,12 @@
 \setcounter{enumi}{15}
 
 %16
-\item Laut VO 5, Folie 13 gilt $\E(\int_0^T Y(t)^2 dt) < \infty \Rightarrow Y \in M_T^2$. Wir wollen also die Vorraussetzung zeigen:
+\item Laut VO 5, Folie 13 gilt $\E(\int_0^T Y(t)^2 dt) < \infty \Rightarrow Y \in M_T^2$. Wir wollen also die Vorraussetzung zeigen. Dabei verwenden wir den üblichen Fubini-Trick. Wir vertauschen erst unbegründet, sehen es kommt nicht unendlich heraus und wissen dadurch, dass das Vertauschen gerechtfertigt war.
 \begin{align*}
 \Ee{\int_0^T Y(t)^2 dt} &= \Ee{\int_0^T (W(t)-1)^4 dt} \\
-&= \Ee{\int_0^T W(t)^4 + 4W(t)^3 + 6W(t)^2 + 4W(t) + 1 dt} \\
-&= \int_0^T \Ee{W(t)^4} + 4\Ee{W(t)^3} + 6\Ee{W(t)^2} + 4\Ee{W(t)} + 1 dt &\text{Fubini\footnote{Der übliche Trick, wir vertauschen erst unbegründet, sehen es kommt nicht unendlich heraus und wissen dadurch, dass das Vertauschen gerechtfertigt war.}} \\
-&= \int_0^T 3t^2 + 0 + 6t + 0 + 1 dt \\
+&= \Ee{\int_0^T W(t)^4 - 4W(t)^3 + 6W(t)^2 - 4W(t) + 1 dt} \\
+&= \int_0^T \Ee{W(t)^4} - 4\Ee{W(t)^3} + 6\Ee{W(t)^2} - 4\Ee{W(t)} + 1 dt &\text{Fubini-Trick} \\
+&= \int_0^T 3t^2 - 0 + 6t - 0 + 1 dt \\
 &= T^3 + 3T^2 + T < \infty &\text{für $T < \infty$}
 \end{align*}
 Desweiteren:
@@ -106,8 +106,28 @@ Also gilt nun:
 &= S_0 + \int_0^T \mu F(t, W(t)) dt + \int_0^T \sigma F(t, W(t)) dW(t) \text{ ist Itô-Prozess.}
 \end{align*}
 
-
-
+%19
+\item Ganz analog:
+\begin{align*}
+F(t, x) &= e^{tx} \\
+F_t(t, x) &= x e^{tx} \\
+F_x(t, x) &= t e^{tx} \\
+F_{xx}(t, x) &= t^2 e^{tx}
+\end{align*}
+Nochmals $(F_x(t, W(t)), t \geq 0) \in M_T^2$ für alle $T > 0$, 
+\begin{align*}
+\Ee{ \int_0^T F_x(t, W(t))^2 dt} &= \Ee{ \int_0^T t^2 e^{2tW(t)} dt} \\
+&= \int_0^T \Ee{ t^2 e^{2tW(t)}} dt &\text{Fubini-Trick} \\
+&= \int_0^T  t^2 \Ee{ e^{2tW(t)}} dt \\
+&= \int_0^T  t^2 e^{2t^3} dt &\text{Erw. der Lognormalvert.}\\
+&= \frac{e^{2T^3} - 1}{6} < \infty
+\end{align*}
+Dementsprechend ist $\xi$ ein Itô-Prozess.
+\begin{align*}
+\xi(T) &= F(T, W(T)) \\
+&= F(0, W(0)) + \int_0^T F_t(t, W(t)) + \frac{1}{2} F_{xx}(t, W(t)) dt + \int_0^T F_x(t, W(t) dW(t) \\
+&= 1 + \int_0^T (x + \frac{t^2}{2}) e^{tx} dt + \int_0^T t e^{tx} dW(t)
+\end{align*}
 
 
 \end{enumerate}
