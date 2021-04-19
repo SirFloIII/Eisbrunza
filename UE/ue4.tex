@@ -135,7 +135,22 @@ Dementsprechend ist $\xi$ ein Itô-Prozess.
 
 %20
 \item TODO Bsp 20
+\begin{enumerate}
+\item
 
+\item Die drei gesuchten Zufallsvariablen/Prozesse sind deterministisch. Damit sind die Vorraussetzungen trivialerweise erfülllt.
+\begin{align*}
+\xi(0) &:= 0 ~~\mathcal F(0)\text{-messbar und von beschränktem 2ten Moment} \\
+a(s) &:= 0 \in \mathcal L_T^1 \\
+b(s) &:= \indd{[0, \pi]}(s) \in M_{step}^2 \subset M_T^2
+\end{align*}
+Damit gilt:
+\begin{align*}
+W(t \wedge \pi) &\stackrel{!}{=} 0 + 0 + \int_0^t \indd{[0, \pi]}(s) dW(s) \\
+&= 1 \cdot (W(t \wedge \pi) - W(0)) \\
+&= W(t \wedge \pi)
+\end{align*}
+\end{enumerate}
 
 \end{enumerate}
 
