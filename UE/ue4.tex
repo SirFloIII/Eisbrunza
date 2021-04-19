@@ -101,7 +101,7 @@ Es muss gelten, dass $(F_x(t, W(t)), t \geq 0) \in M_T^2$ für alle $T > 0$. Bew
 Aus AmStat wissen wir: Wenn $X\sim N(\mu, \sigma^2)$, dann $e^X \sim LogN(\mu, \sigma^2)$ und $\Ee{e^X} = \exp(\mu + \frac{\sigma^2}{2})$. In unserem Fall: $2\sigma W(t) \sim N(0, 4\sigma^2 t)$ und damit $\Ee{e^{2\sigma W(t)}} =  \exp(2\sigma^2 t)$. Wieder mit spekulativem Fubini-Trick folgt also:
 \begin{align*}
 c \cdot \Ee{\int _0^T \exp(2\sigma W(t)) dt} &= c \int _0^T \Ee{\exp(2\sigma W(t))} dt \\
-&= c \int _0^T exp(2\sigma^2 t) dt \\
+&= c \int _0^T \exp(2\sigma^2 t) dt \\
 &= c \frac{e^{2\sigma^2 T}-1}{2\sigma^2} < \infty
 \end{align*}
 Also gilt nun:
