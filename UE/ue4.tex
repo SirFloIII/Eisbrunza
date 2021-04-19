@@ -72,7 +72,7 @@ Desweiteren:
 \begin{align*}
 \Cov{X(t), Y(t)} &= \Ee{X(t) Y(t)}\\
 &= \Ee{I_t (\sin) \cdot I_t (\cos)}\\
-&= \Ee{\int_0^t \sin \cdot \cos ds}&\text{Itô-Isometrie} \\
+&= \Ee{\int_0^t \sin(s) \cdot \cos(s) ds}&\text{Itô-Isometrie} \\
 &= \frac{\sin^2t}{2} &\text{deterministischer Erw.} \\
 \end{align*}
 
@@ -147,7 +147,7 @@ b(s) &:= \indd{[0, \pi]}(s) \in M_{step}^2 \subset M_T^2
 Damit gilt:
 \begin{align*}
 W(t \wedge \pi) &\stackrel{!}{=} 0 + 0 + \int_0^t \indd{[0, \pi]}(s) dW(s) \\
-&= 1 \cdot (W(t \wedge \pi) - W(0)) \\
+&= 1 \cdot (W(t \wedge \pi) - W(0)) &\text{Def. für Treppenfunktionen} \\
 &= W(t \wedge \pi)
 \end{align*}
 \end{enumerate}
