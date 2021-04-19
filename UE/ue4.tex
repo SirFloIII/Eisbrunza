@@ -31,6 +31,7 @@
 \newcommand{\V}{\mathbb V}
 \newcommand{\Vv}[1]{\mathbb V\left[#1\right]}
 \newcommand{\Cov}[1]{\mathbb Cov\left[#1\right]}
+\newcommand{\F}{\mathcal{F}}
 \newcommand{\ind}{\mathbbm{1}}
 \newcommand{\indd}[1]{\mathbbm{1}_{#1}}
 
@@ -43,7 +44,7 @@
 \setcounter{enumi}{15}
 
 %16
-\item Laut VO 5, Folie 13 gilt $\E(\int_0^T Y(t)^2 dt) < \infty \Rightarrow Y \in M_T^2$. Wir wollen also die Vorraussetzung zeigen. Dabei verwenden wir den üblichen Fubini-Trick. Wir vertauschen erst unbegründet, sehen es kommt nicht unendlich heraus und wissen dadurch, dass das Vertauschen gerechtfertigt war.
+\item Laut VO 5, Folie 13 gilt $\Ee{\int_0^T Y(t)^2 dt} < \infty \Rightarrow Y \in M_T^2$. Wir wollen also die Vorraussetzung zeigen. Dabei verwenden wir den üblichen Fubini-Trick. Wir vertauschen erst unbegründet, sehen es kommt nicht unendlich heraus und wissen dadurch, dass das Vertauschen gerechtfertigt war.
 \begin{align*}
 \Ee{\int_0^T Y(t)^2 dt} &= \Ee{\int_0^T (W(t)-1)^4 dt} \\
 &= \Ee{\int_0^T W(t)^4 - 4W(t)^3 + 6W(t)^2 - 4W(t) + 1 dt} \\
@@ -97,7 +98,7 @@ Es muss gelten, dass $(F_x(t, W(t)), t \geq 0) \in M_T^2$ für alle $T > 0$. Bew
 &\leq  \sigma^2 S_0^2 \|\exp(2(\mu - \frac{\sigma^2}{2}) t)\|_{L_\infty[0, T]} \Ee{\int _0^T \exp(2\sigma W(t)) dt} \\
 &= c \cdot \Ee{\int _0^T \exp(2\sigma W(t)) dt} &c < \infty
 \end{align*}
-Aus AmStat wissen wir: Wenn $X\sim N(\mu, \sigma^2)$, dann $e^X \sim LogN(\mu, \sigma^2)$ und $\Ee{e^X} = exp(\mu + \frac{\sigma^2}{2})$. In unserem Fall: $2\sigma W(t) \sim N(0, 4\sigma^2 t)$ und damit $\Ee{e^{2\sigma W(t)}} =  exp(2\sigma^2 t)$. Wieder mit spekulativem Fubini-Trick folgt also:
+Aus AmStat wissen wir: Wenn $X\sim N(\mu, \sigma^2)$, dann $e^X \sim LogN(\mu, \sigma^2)$ und $\Ee{e^X} = \exp(\mu + \frac{\sigma^2}{2})$. In unserem Fall: $2\sigma W(t) \sim N(0, 4\sigma^2 t)$ und damit $\Ee{e^{2\sigma W(t)}} =  \exp(2\sigma^2 t)$. Wieder mit spekulativem Fubini-Trick folgt also:
 \begin{align*}
 c \cdot \Ee{\int _0^T \exp(2\sigma W(t)) dt} &= c \int _0^T \Ee{\exp(2\sigma W(t))} dt \\
 &= c \int _0^T exp(2\sigma^2 t) dt \\
@@ -134,9 +135,22 @@ Dementsprechend ist $\xi$ ein Itô-Prozess.
 \end{align*}
 
 %20
-\item TODO Bsp 20
-\begin{enumerate}
 \item
+\begin{enumerate}
+\item Wir betrachten den Prozess
+$$Y(t) := \int_0^t s W(s) dW(s)$$
+und sollen $\Ee{Y}$ sowie $\Ee{Y^2}$ berechnen. Auf dem Intervall $[0,T]$ können wir den Integranden im Betrag gegen $TW(s)$ abschätzen, wodurch wir erkennen dass der Integrand in $M_T^2$ liegt. Daher ist der Ausdruck $Y(t)$ überhaupt sinnvoll, und wir haben jetzt die bekannten Eigenschaften des Itô-Integrals zur Verfügung:
+\begin{align*}
+\Ee{Y} &= \Ee{Y(t) | \F(0)}\\
+&= \Ee{Y(0)} &\text{Matringaleigenschaft}\\
+&= 0\\
+\Ee{Y^2} &= \Ee{\left(\int_0^t s W(s) dW(s)\right)^2}\\
+&= \Ee{\int_0^t \left(s W(s)\right)^2 ds} &\text{Itô-Iso}\\
+&= \int_0^t s^2 \Ee{W(s)^2} ds &\text{Fubini-Tonelli}\\
+&= \int_0^t s^2 s ~ds \\
+&= \frac{s^4}{4} \bigg|_{s=0}^{s=t}\\
+&= \frac{t^4}{4}
+\end{align*}
 
 \item Die drei gesuchten Zufallsvariablen/Prozesse sind deterministisch. Damit sind die Vorraussetzungen trivialerweise erfülllt.
 \begin{align*}
@@ -148,7 +162,7 @@ Damit gilt:
 \begin{align*}
 W(t \wedge \pi) &\stackrel{!}{=} 0 + 0 + \int_0^t \indd{[0, \pi]}(s) dW(s) \\
 &= 1 \cdot (W(t \wedge \pi) - W(0)) &\text{Def. für Treppenfunktionen} \\
-&= W(t \wedge \pi)
+&= W(t \wedge \pi) &\square
 \end{align*}
 \end{enumerate}
 
