@@ -1,5 +1,5 @@
 import numpy as np
-from matplotlib import pyplot as plt
+import matplotlib.pyplot as plt
 
 n = 1000
 
@@ -20,6 +20,8 @@ Y = np.zeros(T.shape)
 for k in range(steps):
 	Y[k*stepsamples:(k+1)*stepsamples] = W[k*stepsamples]
 	
-plt.plot(T, W, T, Z, T, Y)
-plt.legend(("W", "f_5", "f_50"))
+plt.plot(T, W, T, Z, T, Y, linewidth=0.8)
+plt.legend((r"$W$", r"$f_5$", r"$f_{50}$"))
+plt.tight_layout()
+plt.savefig("21_fig.png", dpi=200)
 plt.show()
