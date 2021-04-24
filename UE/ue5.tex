@@ -1,0 +1,164 @@
+\documentclass[a4paper,11pt,notitlepage,fullpage]{article}
+%\documentclass{report}
+
+\usepackage{fullpage}
+\usepackage[utf8]{inputenc}
+%\usepackage[ngerman]{babel}
+%\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{bbm}
+%\usepackage{algorithm}
+%\usepackage{algpseudocode}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hhline}
+\usepackage{amsthm}
+\usepackage{cite}
+\usepackage{wrapfig}
+\usepackage{hyperref}
+\usepackage{titling}
+\usepackage{color}
+
+\setlength{\droptitle}{-60pt}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\p}{\mathbb P}
+\newcommand{\pp}[1]{\mathbb P\left[#1\right]}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Ee}[1]{\mathbb E\left[#1\right]}
+\newcommand{\V}{\mathbb V}
+\newcommand{\Vv}[1]{\mathbb V\left[#1\right]}
+\newcommand{\Cov}[1]{\mathbb Cov\left[#1\right]}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\ind}{\mathbbm{1}}
+\newcommand{\indd}[1]{\mathbbm{1}_{#1}}
+\newcommand{\norm}[2]{\left|\left|{#1}\right|\right|_{#2}}
+
+\begin{document}
+\author{Florian Bogner \& Alexander Palmrich}
+\title{Stochastische Prozesse - Übung 5}
+\maketitle
+
+\begin{enumerate}
+\setcounter{enumi}{20}
+
+%21
+\item Sei 
+\begin{align*}
+f(t) &:= W(t) \indd{[0,1)}(t)\\
+f_n(t) &:= \sum_{j=0}^{n-1} W(\frac{j}{n}) \indd{[\frac{j}{n}, \frac{j+1}{n})}(t)\\
+Y &:= \frac{W(1)^2-1}{2}
+\end{align*}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.9\textwidth]{gfx/21_fig.png}
+\caption{Ein typischer Pfad von $W$, $f$ und $f_n$}
+\end{figure}
+
+\begin{enumerate}
+%a
+\item $M^2$-Fehler der Approximation von $f$ bestimmen.
+\begin{align*}
+\norm{f_n-f}{M^2} &=
+\end{align*}
+
+%b
+\item $L^2$-Fehler der Approximation der Itô-Integrale, ohne Isometrie.
+\begin{align*}
+\end{align*}
+\end{enumerate}
+
+
+%22
+\item Sei
+$$g_n(t) := \sum_{j=0}^{n-1} (W(\frac{j}{n}))^2 \indd{[\frac{j}{n}, \frac{j+1}{n})}(t)$$
+\begin{enumerate}
+%a
+\item Varianz des Itô-Integrals ausrechnen.
+\begin{align*}
+\Vv{I(g_n)} &=
+\end{align*}
+
+%b
+\item Summen über eine feste Potenz natürlicher Zahlen: Nach wem sind Formeln benannt, die sowas anders darstellen?
+\begin{align*}
+\end{align*}
+\end{enumerate}
+
+%23
+\item Markovkette mit vier Zuständen, Anfangsverteilung $\lambda = (0.5, 0.5, 0, 0)$ und der Übergangsmatrix
+$$P=$$
+\begin{enumerate}
+%a
+\item Wahrscheinlichkeiten von zwei konkreten Zustandsfolgen ausrechnen.
+\begin{align*}
+\end{align*}
+
+%b
+\item Kommunikationsklassen, Rekurrenz, Transienz.
+\begin{align*}
+\end{align*}
+
+%c
+\item Trefferzeit in $\{1, 4\}$.
+\begin{align*}
+\end{align*}
+
+%d
+\item Mittlere Trefferzeit wie oben aber bei Start in jeweiligen Zuständen ausrechnen.
+\begin{align*}
+\end{align*}
+
+%e
+\item Varianz der Trefferzeit wie oben bei Start in $3$ ausrechnen.
+\begin{align*}
+\end{align*}
+\end{enumerate}
+
+%24
+\item Marovkette mit fünf Zuständen, Übergangswahrscheinlichkeiten siehe Graph.
+\begin{enumerate}
+%a
+\item Wahrscheinlichkeiten von zwei konkreten Zustandsfolgen ausrechnen.
+\begin{align*}
+\end{align*}
+
+%b
+\item Kette irreduzibel?
+\begin{align*}
+\end{align*}
+
+%c
+\item Trefferzeiten für $0$ endlich mit welcher $\p$?
+\begin{align*}
+\end{align*}
+
+%d
+\item LGS für mittlere Trefferzeiten in $0$ aufstellen.
+\begin{align*}
+\end{align*}
+\end{enumerate}
+
+%25
+\item Münzwurfspiel, $\pm 1$ Kapital je nach Kopf/Zahl. LGS lösen für die Wahrscheinlichkeiten, in endlicher Zeit in den Ruin zu kommen.
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
