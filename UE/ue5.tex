@@ -64,12 +64,22 @@ Y &:= \frac{W(1)^2-1}{2}
 %a
 \item $M^2$-Fehler der Approximation von $f$ bestimmen.
 \begin{align*}
-\norm{f_n-f}{M^2} &=
+\norm{f_n-f}{M^2} &= \norm{\sum_{j=0}^{n-1} \left(W(\frac{j}{n})-W(t)\right) \indd{[\frac{j}{n}, \frac{j+1}{n})}(t)}{M^2}\\
+&= \Ee{\int \sum_{j=0}^{n-1} \left(W(\frac{j}{n})-W(t)\right)^2 \indd{[\frac{j}{n}, \frac{j+1}{n})}(t) dt}\\
+&= \int \Ee{\sum_{j=0}^{n-1} \left(W(\frac{j}{n})-W(t)\right)^2 \indd{[\frac{j}{n}, \frac{j+1}{n})}(t) } dt &\text{(Fubini-Tonelli)}\\
+&= \int \sum_{j=0}^{n-1} \Ee{\left(W(\frac{j}{n})-W(t)\right)^2} \indd{[\frac{j}{n}, \frac{j+1}{n})}(t)  dt\\
+&= \int \sum_{j=0}^{n-1} \left(t-\frac{j}{n}\right) \indd{[\frac{j}{n}, \frac{j+1}{n})}(t)  dt & \text{($W$ neu gestartet)}\\
+&=  \sum_{j=0}^{n-1} \int\left(t-\frac{j}{n}\right) \indd{[\frac{j}{n}, \frac{j+1}{n})}(t)  dt \\
+&=  \sum_{j=0}^{n-1} \frac{1}{2n^2} & \text{($\int$ = halbes Quadrat der Länge $\frac{1}{n}$)}\\
+&= \frac{1}{2n}
 \end{align*}
+Man beachte, dass mit Itô-Isometrie gilt
+$$\frac{1}{2n} = \norm{f_n-f}{M^2} = \norm{I(f_n-f)}{L^2} = \norm{I(f_n)-I(f)}{L^2} = \norm{I(f_n)-Y}{L^2}$$
 
 %b
 \item $L^2$-Fehler der Approximation der Itô-Integrale, ohne Isometrie.
 \begin{align*}
+\norm{I(f_n)-Y}{L^2} = ?
 \end{align*}
 \end{enumerate}
 
