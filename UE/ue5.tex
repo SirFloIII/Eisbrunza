@@ -26,6 +26,8 @@
 \setlength{\droptitle}{-60pt}
 
 \newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+
 \newcommand{\p}{\mathbb P}
 \newcommand{\pp}[1]{\mathbb P\left[#1\right]}
 \newcommand{\E}{\mathbb E}
@@ -163,8 +165,19 @@ $$P=$$
 \end{enumerate}
 
 %25
-\item Münzwurfspiel, $\pm 1$ Kapital je nach Kopf/Zahl. LGS lösen für die Wahrscheinlichkeiten, in endlicher Zeit in den Ruin zu kommen.
+\item Wir spielen ein Münzwurfspiel um Geld, bei dem in jeder Runde unser Kapital um $\pm 1$ je nach Kopf/Zahl verändert wird. Was ist die Wahrscheinlichkeit, bei Startkapital $i$ in endlicher Zeit in den Ruin zu kommen? Wir bedienen uns einer Markovkette und dem zugehörigen LGS.
 
+Für alle $a \in \R$ ist $(h_i := ai + 1)_{i \in \N}$ eine Lösung des LGS:
+\begin{align*}
+1 &\stackrel{!}{=} h_0 = a\cdot 0 + 1 = 1 \\
+h_i &\stackrel{!}{=} \frac{1}{2}h_{i-1} + \frac{1}{2}h_{h+1} \\
+&= \frac{1}{2}(a(i-1) + 1 + a(i+1) + 1)) \\
+&= \frac{1}{2}(2ai + 2) \\
+&= ai+1 = h_i
+\end{align*}
+Damit haben wir unendlich viele Lösungen. Das sind auch schon alle, denn $h_0 = 1$ ist fest, und $a := h_1 - 1$ berechnet sich aus $h_1$. Höhere $h_i$ für $i>1$ sind dann durch Induktion und die zweite Gleichung eindeutig bestimmt.
+
+Für $a < 0$ ergeben sich $h_i < 0$ für große $i$\footnote{Jargon-Warnung: Weil $\R$ ein archimedischer Körper ist.}, also kann $h_i$ wohl keine Wahrscheinlichkeit sein. Analog, für $a > 0$ ist $h_1 > 1$, also kann es auch keine Wahrscheinlichkeit sein. Nur $a = 0$ und damit $h_i = 1$ bleibt als Möglichkeit übrig.
 
 \end{enumerate}
 
