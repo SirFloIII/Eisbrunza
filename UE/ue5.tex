@@ -78,11 +78,55 @@ $$\frac{1}{2n} = \norm{f_n-f}{M^2} = \norm{I(f_n-f)}{L^2} = \norm{I(f_n)-I(f)}{L
 
 %b
 \item $L^2$-Fehler der Approximation der Itô-Integrale, ohne Isometrie.
+
+In Punkt (a) haben wir schon gezeigt dass $\frac{1}{2n}$ herauskommt, keine Notwendigkeit jetzt in (b) die Isometrie zu bemühen!
+
+Aber gut, rechnen wir zu Fuß. Zuerst mal das Itô-Integral vom Treppenprozess. Um die Lesbarkeit zu verbessern, schreiben wir $W_{j}$ statt $W(\frac{j}{n})$.
+$$I(f_n) = \sum_{j=0}^{n-1} W_j \left( W_{j+1} - W_j\right)$$
+
+Jetzt schauen wir uns den gesuchten $L^2$-Abstand an:
 \begin{align*}
-\norm{I(f_n)-Y}{L^2} = ?
+\norm{I(f_n)-Y}{L^2} &= \Ee{(I(f_n) - Y)^2}\\
+&= \Ee{(I(f_n))^2} -2\Ee{(I(f_n)Y} + \Ee{Y^2}
+\end{align*}
+
+Erster Term, wir nutzen Unabhängigkeit der Inkremente:
+\begin{align*}
+\Ee{(I(f_n))^2} &= \Ee{\left(\sum_{j=0}^{n-1} W_j \left( W_{j+1} - W_j\right)\right)^2}\\
+&= \Ee{\sum_{j=0}^{n-1} W_j^2 \left( W_{j+1} - W_j\right)^2 + 2 \sum_{j=0}^{n-1} \sum_{k>j}^{n-1} W_j \left( W_{j+1} - W_j\right) \cdot W_k \left( W_{k+1} - W_k\right) }\\
+&= \sum_{j=0}^{n-1} \Ee{W_j^2} \Ee{\left( W_{j+1} - W_j\right)^2} + 2 \sum_{j=0}^{n-1} \sum_{k>j}^{n-1} \Ee{W_j \left( W_{j+1} - W_j\right) W_k} \Ee{\left( W_{k+1} - W_k\right)}\\
+&=\sum_{j=0}^{n-1} \frac{j}{n} \frac{1}{n} + 2 \sum_{j=0}^{n-1} \sum_{k>j}^{n-1} \Ee{W_j \left( W_{j+1} - W_j\right) W_k} \cdot 0\\
+&=\frac{1}{n^2}\sum_{j=0}^{n-1} j\\
+&=\frac{1}{n^2}\frac{(n-1)n}{2}\\
+&=\frac{1}{2} - \frac{1}{2n}
+\end{align*}
+
+
+Mittlerer Term:
+\begin{align*}
+\Ee{(I(f_n)Y} &= \Ee{\sum_{j=0}^{n-1} W_j \left( W_{j+1} - W_j\right) \left(\frac{W_n^2-1}{2}\right)}\\
+&= \sum_{j=0}^{n-1} \Ee{W_j \left( W_{j+1} - W_j\right) \left(\frac{W_n^2-1}{2}\right)}\\
+&= \sum_{j=0}^{n-1} \Ee{\left( W_{j+1} - W_j\right)} \Ee{W_j \left(\frac{W_n^2-1}{2}\right)}\\
+&= \sum_{j=0}^{n-1} 0 \cdot \Ee{W_j \left(\frac{W_n^2-1}{2}\right)}\\
+&= 0
+\end{align*}
+
+Hinterster Term:
+\begin{align*}
+\Ee{Y^2} &= \Ee{\left(\frac{W(1)^2-1}{2}\right)^2}\\
+&= \frac{1}{4}\left(\Ee{(W(1))^4} -2\Ee{(W(1))^2}\cdot 1 +1^2\right)\\
+&= \frac{1}{4}\left(3\cdot 1^4 -2\cdot 1 +1\right) &\text{(Momente)}\\
+&= \frac{1}{2}
 \end{align*}
 \end{enumerate}
 
+Insgesamt:
+\begin{align*}
+\norm{I(f_n)-Y}{L^2} &= \Ee{(I(f_n) - Y)^2}\\
+&= \Ee{(I(f_n))^2} -2\Ee{(I(f_n)Y} + \Ee{Y^2}\\
+&=\frac{1}{2} - \frac{1}{2n} -2\cdot0 +\frac{1}{2}\\
+&= 1 - \frac{1}{2n}
+\end{align*}
 
 %22
 \item Sei
@@ -108,7 +152,7 @@ In der Darstellung $(*)$ steht eine Riemannsumme zum Integral $\int_0^1 3x^4 dx$
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.9\textwidth]{gfx/Ioannes-Faulhaberus-Mathematicus-Imperialis-Ulmae-Natus.png}
+\includegraphics[width=0.5\textwidth]{gfx/Ioannes-Faulhaberus-Mathematicus-Imperialis-Ulmae-Natus.png}
 \caption{Johannes Faulhaber}
 \end{figure}
 
@@ -116,23 +160,27 @@ In der Darstellung $(*)$ steht eine Riemannsumme zum Integral $\int_0^1 3x^4 dx$
 Die allgemeine Familie der Identitäten
 $$\sum_{j=0}^{n-1} j^k = \frac{1}{k+1}\sum_{j=0}^k \binom{k+1}{j} B_{j} n^{k+1-j} \in \text{\{Polynome in $n$ vom Grad $k+1$\}}$$
 wobei $B_j$ die $j$-te Bernoulli-Zahl erster Art bezeichnet, ist daher nach Faulhaber benannt.
-Fauhlaber war Mathematiker, Ingenieur, Festungsbaumeister (Basel und Frankfurt), Rechnenmeister, Numerologe, Alchemist, Astrologe, Erfinder, ein Freund Keplers.
+Faulhaber war Mathematiker, Ingenieur, Festungsbaumeister (Basel und Frankfurt), Rechnenmeister, Numerologe, Alchemist, Astrologe, Erfinder, ein Freund Keplers.
 
 
 Die \textsc{Erdős}-\textsc{Moser}-Gleichung hat die Gestalt
 $$\sum_{j=0}^{m} j^k = (m+1)^k$$
 und ordnet sich damit in die Familie ein. Eine bekannte Lösung lautet $1^1+2^1=3^1$, seit 70 Jahren hat man keine weitere Lösung gefunden, weiß aber dass $m>10^{1000000000}$ gelten müsste.
 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{gfx/Leo_Moser.png}
+\caption{Leo Moser}
+\end{figure}
 \textsc{Leo Moser}, Namensgeber obiger Gleichung, hat übrigens ein weiteres bisher ungelöstes, sehr elegantes Problem formuliert (Moser's worm problem):
 \emph{Was ist eine Figur mit minimalem Flächeninhalt in der Ebene, so dass man jede Kurve der Länge $1$ einschreiben kann?}\\
-Man weiß dass so eine Figur existieren muss (anders als beim Nadel-Umdreh-Problem beispielsweise), und seit 2017 auch dass ein Kreissektor, der $\frac{1}{6}$ des Einheitskreises ist, eine obere Schranke bildet.
+Man weiß dass so eine Figur existieren muss (anders als beim Streichholz-Umdreh-Problem beispielsweise), und seit 2017 auch dass ein Kreissektor, der $\frac{1}{6}$ des Einheitskreises ist, eine obere Schranke bildet.
 
 
 Zurück zu den Summen: Wenn man $n\rightarrow \infty$ gehen lässt, konvergieren die Summen nicht mehr. Wenn wir aber negative Exponenten zulassen, oder gleich komplexe, dann landen wir schnell bei der Riemannschen Zeta-Funktion:
 $$\zeta (z) := \sum_{n=1}^\infty \frac{1}{n^z}$$
 Diese Funktion taucht vielerorts prominent auf und ist super wichtig, siehe Literatur.
-\begin{align*}
-\end{align*}
 \end{enumerate}
 
 %23
