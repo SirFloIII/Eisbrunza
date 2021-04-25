@@ -57,7 +57,7 @@ Y &:= \frac{W(1)^2-1}{2}
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.9\textwidth]{gfx/21_fig.png}
-\caption{Ein typischer Pfad von $W$, $f$ und $f_n$}
+\caption{Ein typischer Pfad von $f$ und $f_n$}
 \end{figure}
 
 \begin{enumerate}
@@ -96,14 +96,41 @@ $$g_n(t) := \sum_{j=0}^{n-1} (W(\frac{j}{n}))^2 \indd{[\frac{j}{n}, \frac{j+1}{n
 &= \int \Ee{g_n^2} dt\\
 &= \int \Ee{\sum_{j=0}^{n-1} (W(\frac{j}{n}))^4 \indd{[\frac{j}{n}, \frac{j+1}{n})}(t)} dt\\
 &= \int \sum_{j=0}^{n-1} \Ee{(W(\frac{j}{n}))^4} \indd{[\frac{j}{n}, \frac{j+1}{n})}(t) dt\\
-&= \int \sum_{j=0}^{n-1} 3(\frac{j}{n})^4 \indd{[\frac{j}{n}, \frac{j+1}{n})}(t) dt\\
+&= \int \sum_{j=0}^{n-1} 3(\frac{j}{n})^4 \indd{[\frac{j}{n}, \frac{j+1}{n})}(t) dt &\text{(viertes Moment Normalverteilung)}\\
 &= \sum_{j=0}^{n-1} 3(\frac{j}{n})^4 \int \indd{[\frac{j}{n}, \frac{j+1}{n})}(t) dt\\
-&= \sum_{j=0}^{n-1} 3(\frac{j}{n})^4 \frac{1}{n}\\
+&= \sum_{j=0}^{n-1} 3(\frac{j}{n})^4 \frac{1}{n} &(*)\\
 &= \frac{3}{n^5} \sum_{j=0}^{n-1} j^4 \\
 \end{align*}
+In der Darstellung $(*)$ steht eine Riemannsumme zum Integral $\int_0^1 3x^4 dx$ mit äquidistanten Stützstellen $x_j = \frac{j}{n} \Rightarrow \Delta x = \frac{1}{n}$, womit diese Summe für $n\rightarrow \infty$ gegen $\left. \frac{3}{5}x^5\right|_0^1 = \frac{3}{5}$ geht.
 
 %b
 \item Summen über eine feste Potenz natürlicher Zahlen: Nach wem sind Formeln benannt, die sowas anders darstellen?
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.9\textwidth]{gfx/Ioannes-Faulhaberus-Mathematicus-Imperialis-Ulmae-Natus.png}
+\caption{Johannes Faulhaber}
+\end{figure}
+
+\textsc{Johannes Faulhaber}, der in der Spätrenaissance um 1600 herum gelebt hat, hat für $n=1..11$ konkrete Formeln aufgestellt.
+Die allgemeine Familie der Identitäten
+$$\sum_{j=0}^{n-1} j^k = \frac{1}{k+1}\sum_{j=0}^k \binom{k+1}{j} B_{j} n^{k+1-j} \in \text{\{Polynome in $n$ vom Grad $k+1$\}}$$
+wobei $B_j$ die $j$-te Bernoulli-Zahl erster Art bezeichnet, ist daher nach Faulhaber benannt.
+Fauhlaber war Mathematiker, Ingenieur, Festungsbaumeister (Basel und Frankfurt), Rechnenmeister, Numerologe, Alchemist, Astrologe, Erfinder, ein Freund Keplers.
+
+
+Die \textsc{Erdős}-\textsc{Moser}-Gleichung hat die Gestalt
+$$\sum_{j=0}^{m} j^k = (m+1)^k$$
+und ordnet sich damit in die Familie ein. Eine bekannte Lösung lautet $1^1+2^1=3^1$, seit 70 Jahren hat man keine weitere Lösung gefunden, weiß aber dass $m>10^{1000000000}$ gelten müsste.
+
+\textsc{Leo Moser}, Namensgeber obiger Gleichung, hat übrigens ein weiteres bisher ungelöstes, sehr elegantes Problem formuliert (Moser's worm problem):
+\emph{Was ist eine Figur mit minimalem Flächeninhalt in der Ebene, so dass man jede Kurve der Länge $1$ einschreiben kann?}\\
+Man weiß dass so eine Figur existieren muss (anders als beim Nadel-Umdreh-Problem beispielsweise), und seit 2017 auch dass ein Kreissektor, der $\frac{1}{6}$ des Einheitskreises ist, eine obere Schranke bildet.
+
+
+Zurück zu den Summen: Wenn man $n\rightarrow \infty$ gehen lässt, konvergieren die Summen nicht mehr. Wenn wir aber negative Exponenten zulassen, oder gleich komplexe, dann landen wir schnell bei der Riemannschen Zeta-Funktion:
+$$\zeta (z) := \sum_{n=1}^\infty \frac{1}{n^z}$$
+Diese Funktion taucht vielerorts prominent auf und ist super wichtig, siehe Literatur.
 \begin{align*}
 \end{align*}
 \end{enumerate}
