@@ -108,9 +108,31 @@ Mittlerer Term:
 \begin{align*}
 \Ee{(I(f_n)Y} &= \Ee{\sum_{j=0}^{n-1} W_j \left( W_{j+1} - W_j\right) \left(\frac{W_n^2-1}{2}\right)}\\
 &= \sum_{j=0}^{n-1} \Ee{W_j \left( W_{j+1} - W_j\right) \left(\frac{W_n^2-1}{2}\right)}\\
-&= \sum_{j=0}^{n-1} \Ee{\left( W_{j+1} - W_j\right)} \Ee{W_j \left(\frac{W_n^2-1}{2}\right)}\\
-&= \sum_{j=0}^{n-1} 0 \cdot \Ee{W_j \left(\frac{W_n^2-1}{2}\right)}\\
-&= 0
+&= \frac{1}{2}\sum_{j=0}^{n-1} \Ee{W_j \left( W_{j+1} - W_j\right) \left(W_n^2-1\right)}\\
+&= \frac{1}{2}\sum_{j=0}^{n-1} \Ee{W_j \left( W_{j+1} - W_j\right) W_n^2} - \Ee{W_j \left( W_{j+1} - W_j\right)}\\
+\end{align*}
+Wir rechnen die beiden Erwartungswerte in der Summe aus. Der rechte ist einfach, da das Inkrement unabhängig vom Startzeitpunkt ist. Für den linken verwenden wir $\Delta_b W_a := W_{a+b} - W_a$ als Notation für das $\frac{b}{n}$ lange Inkrement von $\frac{a}{n}$ weg.
+\begin{align*}
+\Ee{W_j \left( W_{j+1} - W_j\right)} &= 0\\
+\end{align*}
+\begin{align*}
+&~~~~ \Ee{W_j \left( W_{j+1} - W_j\right) W_n^2} \\
+&= \Ee{W_j (\Delta_1 W_j) W_n^2}\\
+&= \Ee{W_j \Delta_1 W_j (\Delta_{n-(j+1)}W_{j+1} + W_{j+1})^2}\\
+&= \Ee{W_j \Delta_1 W_j (\Delta_{n-(j+1)}W_{j+1})^2} + &\text{3 unabh. Faktoren}\\
+&\hdots + 2 \Ee{W_j \Delta_1 W_j (\Delta_{n-(j+1)}W_{j+1}) W_{j+1}} + &\text{2. Inkrement unabh.}\\
+&\hdots + \Ee{W_j \Delta_1 W_j W_{j+1}^2} \\
+&= 0 + 0 + \Ee{W_j \Delta_1 W_j W_{j+1}^2} \\
+&= \Ee{W_j \Delta_1 W_j (\Delta_1Wj + W_j)^2} \\
+&= \Ee{W_j (\Delta_1 W_j)^3} + 2 \Ee{W_j^2 (\Delta_1 W_j)^2} + \Ee{W_j^3 (\Delta_1 W_j)} \\
+&= 0 + 2\Vv{W_j}\Vv{\Delta_1 W_j} + 0 \\
+&= 2 \frac{j}{n^2}
+\end{align*}
+Zurück eingesetzt ergibt sich:
+\begin{align*}
+\Ee{(I(f_n)Y} &= \frac{1}{2}\sum_{j=0}^{n-1} 2 \frac{j}{n^2} - 0 \\
+&= \frac{1}{n^2} \cdot \frac{(n-1)n}{2} \\
+&= \frac{1}{2} - \frac{1}{2n}
 \end{align*}
 
 Hinterster Term:
@@ -126,10 +148,10 @@ Insgesamt:
 \begin{align*}
 \norm{I(f_n)-Y}{L^2} &= \Ee{(I(f_n) - Y)^2}\\
 &= \Ee{(I(f_n))^2} -2\Ee{(I(f_n)Y} + \Ee{Y^2}\\
-&=\frac{1}{2} - \frac{1}{2n} -2\cdot0 +\frac{1}{2}\\
-&= 1 - \frac{1}{2n}
+&=\frac{1}{2} - \frac{1}{2n} - 2\cdot\left(\frac{1}{2} - \frac{1}{2n}\right) +\frac{1}{2}\\
+&= \frac{1}{2n}
 \end{align*}
-
+Mühsam. Ein Hoch auf die Itô-Isometrie.
 %22
 \item Sei
 $$g_n(t) := \sum_{j=0}^{n-1} (W(\frac{j}{n}))^2 \indd{[\frac{j}{n}, \frac{j+1}{n})}(t)$$
