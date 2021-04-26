@@ -3,7 +3,7 @@
 
 \usepackage{fullpage}
 \usepackage[utf8]{inputenc}
-%\usepackage[ngerman]{babel}
+\usepackage[ngerman]{babel}
 %\usepackage[english]{babel}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -30,6 +30,7 @@
 
 \newcommand{\p}{\mathbb P}
 \newcommand{\pp}[1]{\mathbb P\left[#1\right]}
+\newcommand{\ppp}[2]{\mathbb P_#1\left[#2\right]}
 \newcommand{\E}{\mathbb E}
 \newcommand{\Ee}[1]{\mathbb E\left[#1\right]}
 \newcommand{\V}{\mathbb V}
@@ -68,11 +69,11 @@ Y &:= \frac{W(1)^2-1}{2}
 \begin{align*}
 \norm{f_n-f}{M^2} &= \norm{\sum_{j=0}^{n-1} \left(W(\frac{j}{n})-W(t)\right) \indd{[\frac{j}{n}, \frac{j+1}{n})}(t)}{M^2}\\
 &= \Ee{\int \sum_{j=0}^{n-1} \left(W(\frac{j}{n})-W(t)\right)^2 \indd{[\frac{j}{n}, \frac{j+1}{n})}(t) dt}\\
-&= \int \Ee{\sum_{j=0}^{n-1} \left(W(\frac{j}{n})-W(t)\right)^2 \indd{[\frac{j}{n}, \frac{j+1}{n})}(t) } dt &\text{(Fubini-Tonelli)}\\
+&= \int \Ee{\sum_{j=0}^{n-1} \left(W(\frac{j}{n})-W(t)\right)^2 \indd{[\frac{j}{n}, \frac{j+1}{n})}(t) } dt &\text{Fubini-Tonelli}\\
 &= \int \sum_{j=0}^{n-1} \Ee{\left(W(\frac{j}{n})-W(t)\right)^2} \indd{[\frac{j}{n}, \frac{j+1}{n})}(t)  dt\\
-&= \int \sum_{j=0}^{n-1} \left(t-\frac{j}{n}\right) \indd{[\frac{j}{n}, \frac{j+1}{n})}(t)  dt & \text{($W$ neu gestartet)}\\
+&= \int \sum_{j=0}^{n-1} \left(t-\frac{j}{n}\right) \indd{[\frac{j}{n}, \frac{j+1}{n})}(t)  dt & \text{$W$ neu gestartet}\\
 &=  \sum_{j=0}^{n-1} \int\left(t-\frac{j}{n}\right) \indd{[\frac{j}{n}, \frac{j+1}{n})}(t)  dt \\
-&=  \sum_{j=0}^{n-1} \frac{1}{2n^2} & \text{($\int$ = halbes Quadrat der Länge $\frac{1}{n}$)}\\
+&=  \sum_{j=0}^{n-1} \frac{1}{2n^2} & \text{$\int$ = halbes Quadrat der Länge $\frac{1}{n}$}\\
 &= \frac{1}{2n}
 \end{align*}
 Man beachte, dass mit Itô-Isometrie gilt
@@ -139,7 +140,7 @@ Hinterster Term:
 \begin{align*}
 \Ee{Y^2} &= \Ee{\left(\frac{W(1)^2-1}{2}\right)^2}\\
 &= \frac{1}{4}\left(\Ee{(W(1))^4} -2\Ee{(W(1))^2}\cdot 1 +1^2\right)\\
-&= \frac{1}{4}\left(3\cdot 1^4 -2\cdot 1 +1\right) &\text{(Momente)}\\
+&= \frac{1}{4}\left(3\cdot 1^4 -2\cdot 1 +1\right) &\text{Momente}\\
 &= \frac{1}{2}
 \end{align*}
 \end{enumerate}
@@ -152,6 +153,8 @@ Insgesamt:
 &= \frac{1}{2n}
 \end{align*}
 Mühsam. Ein Hoch auf die Itô-Isometrie.
+
+\newpage
 %22
 \item Sei
 $$g_n(t) := \sum_{j=0}^{n-1} (W(\frac{j}{n}))^2 \indd{[\frac{j}{n}, \frac{j+1}{n})}(t)$$
@@ -207,6 +210,7 @@ $$\zeta (z) := \sum_{n=1}^\infty \frac{1}{n^z}$$
 Diese Funktion taucht vielerorts prominent auf und ist super wichtig, siehe Literatur.
 \end{enumerate}
 
+\newpage
 %23
 \item Markovkette mit vier Zuständen, Anfangsverteilung $\lambda = (0.5, 0.5, 0, 0)$ und der Übergangsmatrix
 $$P=\begin{pmatrix}
@@ -239,41 +243,73 @@ Desweiteren:
 %c
 \item Sei $T$ die Stoppzeit um in 1 oder 4 zukommen.
 \begin{align*}
+\pp{T < \infty} &= 1 \\
+\ppp{2}{T = 2} &= \pp{X_1 \in \{2,3\}, X_2 \in \{1,4\} | X_0 = 2} \\
+&= \pp{X_1 = 2 | X_0 = 2} \pp{ X_2 \in \{1,4\} | X_1 = 2} + \hdots \\
+&\hdots + \pp{X_1 = 3 | X_0 = 2} \pp{ X_2 \in \{1,4\} | X_1 = 3} \\
+&= P_{2,2}(P_{2,1}+P_{2,4}) + P_{2,3}(P_{3,1}+P_{3,4}) \\
+&= \frac{1}{4} \left(\frac{1}{4} + \frac{1}{4}\right) + \frac{1}{4}\left(0 + \frac{1}{2}\right) \\
+&= \frac{1}{8} + \frac{1}{8} = \frac{1}{4}
 \end{align*}
 
 %d
 \item Mittlere Trefferzeit wie oben aber bei Start in jeweiligen Zuständen ausrechnen.
 \begin{align*}
+k_1 &= 0 \\
+k_4 &= 0 \\
+k_3 &= 1 + \frac{k_3 + k_4}{2} = 1 + \frac{k_3}{2} = 2\\
+k_2 &= 1 + \frac{k_1 + k_2 + k_3 + k_4}{4} = 1 + \frac{k_2 + 2}{4} = \frac{3}{2} + \frac{k_2}{4} = 2\\
 \end{align*}
 
 %e
-\item Varianz der Trefferzeit wie oben bei Start in $3$ ausrechnen.
+\item Was ist die Varianz von $T$ unter $\p_3$? Da man vom Zustand 3 nicht zu 1 oder 2 kommt, sind nur die Zustände 3 und 4 relevant. Die Frage ist nun, wie oft man im Zustand 3 bleibt. Das entspricht einer geometrischen Verteilung: $T \sim G\left(\frac{1}{2}\right)$. $$\V_3\left[T\right] = \frac{1-p}{p^2} = \frac{1-\frac{1}{2}}{\frac{1}{2}^2} = 2$$
 \begin{align*}
 \end{align*}
 \end{enumerate}
 
 %24
-\item Marovkette mit fünf Zuständen, Übergangswahrscheinlichkeiten siehe Graph.
+\item 
 \begin{enumerate}
 %a
-\item Wahrscheinlichkeiten von zwei konkreten Zustandsfolgen ausrechnen.
+\item Wahrscheinlichkeiten von zwei konkreten Zustandsfolgen:
 \begin{align*}
+\pp{X_3 = 2, X_2 = 1, X_1 = 0, X_0 = 0} &= \frac{1}{3}\cdot\frac{1}{2}\cdot\frac{1}{2}\cdot\frac{1}{2} = \frac{1}{24} \\
+\pp{X_3 = 2, X_2 = 1, X_1 = 0} &= \frac{2}{3}\cdot\frac{1}{2}\cdot\frac{1}{2}\cdot\frac{1}{2} = \frac{1}{12}
 \end{align*}
 
 %b
-\item Kette irreduzibel?
-\begin{align*}
-\end{align*}
+\item Ist diese Kette irreduzibel? Ja, jeder Zustand ist von jedem anderen erreichbar. Für alle Zustände $i, j$ existiert $n = |i-j|$ sodass: $$\pp{X_{|i-j|} = j | X_0 = i} = \frac{1}{2^{|i-j|}} > 0$$
 
 %c
-\item Trefferzeiten für $0$ endlich mit welcher $\p$?
-\begin{align*}
-\end{align*}
+\item Alle Zustände kommunizieren miteinander, siehe (b), deshalb sind alle Trefferzeiten f.s. endlich. In Symbolen: $$\forall i : h_i := \ppp{i}{H < \infty} = 1$$
 
 %d
-\item LGS für mittlere Trefferzeiten in $0$ aufstellen.
+\item LGS für mittlere Trefferzeiten in $0$:
 \begin{align*}
+k_0 &= 0 \\
+k_1 &= 1 + \frac{k_0 + k_2}{2} \\
+k_2 &= 1 + \frac{k_1 + k_3}{2} \\
+k_3 &= 1 + \frac{k_2 + k_4}{2} \\
+k_4 &= 1 + \frac{k_3 + k_4}{2}
 \end{align*}
+In Matrixform:
+\begin{align*}
+\frac{1}{2}
+\begin{pmatrix*}[r]
+2&-1&0&0 \\
+-1&2&-1&0 \\
+0&-1&2&-1 \\
+0&0&-1&1
+\end{pmatrix*} \cdot
+\begin{pmatrix}
+k_1 \\ k_2 \\ k_3 \\ k_4
+\end{pmatrix}
+ = 
+\begin{pmatrix}
+1 \\ 1 \\ 1 \\ 1
+\end{pmatrix}
+\end{align*}
+Das führt zur Lösung $(k_0, k_1, k_2, k_3, k_4) = (0,8,14,18,20)$.
 \end{enumerate}
 
 %25
