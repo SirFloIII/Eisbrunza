@@ -112,22 +112,42 @@ $$p_1 = \frac{5}{11}$$
 Wir müssen $p_3$ gar nicht mehr berechnen, da $p_1$ gleich unsere Antwort ist: Die Maus tappt mit Wahrscheinlichtkeit $\frac{5}{11}$ in die Falle. Armes Mausi.
 
 %04
-\item bla
-\begin{enumerate}
-%a
-\item a
+\item Mit dem Satz der Totalen Wahrscheinlichkeit und der Eigenschaft strikt stationär geht das ganz ez:
 \begin{align*}
+\lambda_0 &= \pp{X_0 = 0} \\
+&= \pp{X_0 = 0, X_1 = 0} + \pp{X_0 = 0, X_1 = 1} \\
+&= 0.25+0.15 = 0.4 \\
+\lambda_1 &= 1-\lambda_0 = 0.6 \\
+P_{00} &= \pp{X_{n+1} = 0 | X_n = 0} \\
+&= \pp{X_{n+1} = 0 | X_n = 0, X_{n-1} = 0}\cdot\pp{X_{n-1} = 0} + \cdots \\
+&~~~~\cdots + \pp{X_{n+1} = 0 | X_n = 0, X_{n-1} = 1}\cdot\pp{X_{n-1} = 1} \\
+&= 0.7 \cdot \lambda_0 + 0.5 \cdot \lambda_1 \\
+&= 0.58 \\
+P_{10} &= \pp{X_{n+1} = 0 | X_n = 1} \\
+&= \pp{X_{n+1} = 1 | X_n = 1, X_{n-1} = 0}\cdot\pp{X_{n-1} = 0} + \cdots \\
+&~~~~\cdots + \pp{X_{n+1} = 0 | X_n = 1, X_{n-1} = 1}\cdot\pp{X_{n-1} = 1} \\
+&= 0.4 \cdot \lambda_0 + 0.2 \cdot \lambda_1 \\
+&= 0.28 \\
+P_{01} &= 1 - P_{00} = 0.42 \\
+P_{11} &= 1 - P_{10} = 0.72
+\end{align*}
+TODO: Überlegen ob das richtig ist. Kann man aus der strikt stationär Eigenschaft wirklich schließen, dass die unbedingte Verteilung die gleiche ist wie die Startverteilung? Außerdem muss man eigentlich zeigen, dass X strikt stationär ist.
+
+Laut Markov-Eigenschaft müsste dann ja z.B. $$\pp{X_{n+1} = 0 | X_n = 0} = \pp{X_{n+1} = 0 | X_n = 0, X_{n-1} = 0}$$ gelten, aber klarerweise ist $0.58 \neq 0.7$.
+
+Wir definieren uns eine Markovkette: Als Zustandsraum $S := \{00, 10, 01, 11\}$ wählen wir Zusammenfassungen von je zwei Tagen. Die Anfangsverteilung $\lambda := (0.25, 0.15, 0.15, 0.45)$ lesen wir direkt aus der Tabelle ab. Die Berechnung der Übergangswahrscheinlichkeiten ist einen Hauch komplizierter. Sei $a, b, c, d \in \{0, 1\}$
+\begin{align*}
+P_{ab, cd} &= \pp{X_{n+2} = d, X_{n+1} = c | X_n = b, X_{n-1} = a} \\
+&= \pp{X_{n+1} = c | X_n = b, X_{n-1} = a} \cdot \pp{X_{n+2} = d | X_{n+1} = c, X_n = b, X_{n-1} = a} \\
+&= \pp{X_{n+1} = c | X_n = b, X_{n-1} = a} \cdot \pp{X_{n+2} = d | X_{n+1} = c, X_n = b}
+\end{align*}
+Die vorkommenden Wahrscheinlichkeiten sind in der Tabelle zu finden. Wir wir rechenen illustrativ $P_{01,10}$ aus:
+\begin{align*}
+P_{01, 10} &= (1-0.4) \cdot 0.2 = 0.12
 \end{align*}
 
-%b
-\item b
-\begin{align*}
-\end{align*}
-\end{enumerate}
-
-\newpage
 %05
-\item Markovketten:
+\item
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.5\textwidth]{gfx/29_a.pdf}
@@ -151,6 +171,7 @@ P = \frac{1}{10}\begin{pmatrix}
 \end{align*}
 In Abbildung \ref{fig:graph} sehen wir eine graphische Representation der Markovkette. Nur positive Übergangswahrscheinlichkeiten sind eingezeichnet. Die einzige nichttriviale Kommunikationsklasse $\{1, 2\}$ ist strichliert eingezeichnet. Alle anderen Kommunikationsklassen enthalten nur einen Zustand. Damit ist die Markovkette reduzibel.
 %b
+%copypasta : P = np.array([[int(d) for d in line] for line in "0110 1001 0011 0011".split(" ")])/2
 \item Behauptung für $n \geq 1$:
 \begin{align*}
 n~\text{gerade} &\Rightarrow P^n = \begin{pmatrix}
