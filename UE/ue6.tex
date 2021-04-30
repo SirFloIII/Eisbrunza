@@ -151,9 +151,90 @@ P = \frac{1}{10}\begin{pmatrix}
 \end{align*}
 In Abbildung \ref{fig:graph} sehen wir eine graphische Representation der Markovkette. Nur positive Übergangswahrscheinlichkeiten sind eingezeichnet. Die einzige nichttriviale Kommunikationsklasse $\{1, 2\}$ ist strichliert eingezeichnet. Alle anderen Kommunikationsklassen enthalten nur einen Zustand. Damit ist die Markovkette reduzibel.
 %b
-\item b
+\item Behauptung für $n \geq 1$:
 \begin{align*}
+n~\text{gerade} &\Rightarrow P^n = \begin{pmatrix}
+\frac{1}{2}^n&0&\frac{1}{2}-\frac{1}{2}^n&\frac{1}{2} \\
+0&\frac{1}{2}^n&\frac{1}{2}&\frac{1}{2}-\frac{1}{2}^n \\
+0&0&\frac{1}{2}&\frac{1}{2}\\
+0&0&\frac{1}{2}&\frac{1}{2}
+\end{pmatrix} \\
+n~\text{ungerade} &\Rightarrow P^n = \begin{pmatrix}
+0&\frac{1}{2}^n&\frac{1}{2}&\frac{1}{2}-\frac{1}{2}^n \\
+\frac{1}{2}^n&0&\frac{1}{2}-\frac{1}{2}^n&\frac{1}{2} \\
+0&0&\frac{1}{2}&\frac{1}{2}\\
+0&0&\frac{1}{2}&\frac{1}{2}
+\end{pmatrix} 
 \end{align*}
+
+Beweis per Induktion: Induktionsanfang \emph{trivial}.
+
+Gerader Induktionsschritt:
+\begin{gather*}
+P^n = P^{n-1} \cdot P = \begin{pmatrix}
+0&\frac{1}{2}^{n-1}&\frac{1}{2}&\frac{1}{2}-\frac{1}{2}^{n-1} \\
+\frac{1}{2}^{n-1}&0&\frac{1}{2}-\frac{1}{2}^{n-1}&\frac{1}{2} \\
+0&0&\frac{1}{2}&\frac{1}{2}\\
+0&0&\frac{1}{2}&\frac{1}{2}
+\end{pmatrix} \cdot \begin{pmatrix}
+0&\frac{1}{2}&\frac{1}{2}&0 \\
+\frac{1}{2}&0&0&\frac{1}{2} \\
+0&0&\frac{1}{2}&\frac{1}{2}\\
+0&0&\frac{1}{2}&\frac{1}{2}
+\end{pmatrix} \\
+= \begin{pmatrix}
+\frac{1}{2}^{n-1} \cdot \frac{1}{2} & 0 & \frac{1}{2}\cdot\frac{1}{2} + (\frac{1}{2} - \frac{1}{2}^{n-1})\cdot\frac{1}{2} & \frac{1}{2}^{n-1} \cdot \frac{1}{2} + \frac{1}{2}\cdot\frac{1}{2} +  (\frac{1}{2} - \frac{1}{2}^{n-1})\cdot\frac{1}{2}\\
+0 & \frac{1}{2}^{n-1} \cdot \frac{1}{2} & \frac{1}{2}^{n-1} \cdot \frac{1}{2} + \frac{1}{2}\cdot\frac{1}{2} +  (\frac{1}{2} - \frac{1}{2}^{n-1})\cdot\frac{1}{2} & \frac{1}{2}\cdot\frac{1}{2} + (\frac{1}{2} - \frac{1}{2}^{n-1})\cdot\frac{1}{2} \\
+0&0&\frac{1}{2}\cdot\frac{1}{2} + \frac{1}{2}\cdot\frac{1}{2}&\frac{1}{2}\cdot\frac{1}{2} + \frac{1}{2}\cdot\frac{1}{2}\\
+0&0&\frac{1}{2}\cdot\frac{1}{2} + \frac{1}{2}\cdot\frac{1}{2}&\frac{1}{2}\cdot\frac{1}{2} + \frac{1}{2}\cdot\frac{1}{2}
+\end{pmatrix} \\
+= \begin{pmatrix}
+\frac{1}{2}^n&0&\frac{1}{2}-\frac{1}{2}^n&\frac{1}{2} \\
+0&\frac{1}{2}^n&\frac{1}{2}&\frac{1}{2}-\frac{1}{2}^n \\
+0&0&\frac{1}{2}&\frac{1}{2}\\
+0&0&\frac{1}{2}&\frac{1}{2}
+\end{pmatrix}
+\end{gather*}
+
+Ungerader Induktionsschritt analog:
+\begin{gather*}
+P^n = P^{n-1} \cdot P = \begin{pmatrix}
+\frac{1}{2}^{n-1}&0&\frac{1}{2}-\frac{1}{2}^{n-1}&\frac{1}{2} \\
+0&\frac{1}{2}^{n-1}&\frac{1}{2}&\frac{1}{2}-\frac{1}{2}^{n-1} \\
+0&0&\frac{1}{2}&\frac{1}{2}\\
+0&0&\frac{1}{2}&\frac{1}{2}
+\end{pmatrix} \cdot \begin{pmatrix}
+0&\frac{1}{2}&\frac{1}{2}&0 \\
+\frac{1}{2}&0&0&\frac{1}{2} \\
+0&0&\frac{1}{2}&\frac{1}{2}\\
+0&0&\frac{1}{2}&\frac{1}{2}
+\end{pmatrix} \\
+= \begin{pmatrix}
+0 & \frac{1}{2}^{n-1} \cdot \frac{1}{2} & \frac{1}{2}^{n-1} \cdot \frac{1}{2} + \frac{1}{2}\cdot\frac{1}{2} +  (\frac{1}{2} - \frac{1}{2}^{n-1})\cdot\frac{1}{2} & \frac{1}{2}\cdot\frac{1}{2} + (\frac{1}{2} - \frac{1}{2}^{n-1})\cdot\frac{1}{2} \\
+\frac{1}{2}^{n-1} \cdot \frac{1}{2} & 0 & \frac{1}{2}\cdot\frac{1}{2} + (\frac{1}{2} - \frac{1}{2}^{n-1})\cdot\frac{1}{2} & \frac{1}{2}^{n-1} \cdot \frac{1}{2} + \frac{1}{2}\cdot\frac{1}{2} +  (\frac{1}{2} - \frac{1}{2}^{n-1})\cdot\frac{1}{2}\\
+0&0&\frac{1}{2}\cdot\frac{1}{2} + \frac{1}{2}\cdot\frac{1}{2}&\frac{1}{2}\cdot\frac{1}{2} + \frac{1}{2}\cdot\frac{1}{2}\\
+0&0&\frac{1}{2}\cdot\frac{1}{2} + \frac{1}{2}\cdot\frac{1}{2}&\frac{1}{2}\cdot\frac{1}{2} + \frac{1}{2}\cdot\frac{1}{2}
+\end{pmatrix} \\
+= \begin{pmatrix}
+0&\frac{1}{2}^n&\frac{1}{2}&\frac{1}{2}-\frac{1}{2}^n \\
+\frac{1}{2}^n&0&\frac{1}{2}-\frac{1}{2}^n&\frac{1}{2} \\
+0&0&\frac{1}{2}&\frac{1}{2}\\
+0&0&\frac{1}{2}&\frac{1}{2}
+\end{pmatrix}
+\end{gather*}
+\qed
+
+Im Grenzwert:
+\begin{align*}
+P^\infty = \begin{pmatrix}
+0&0&\frac{1}{2}&\frac{1}{2}\\
+0&0&\frac{1}{2}&\frac{1}{2}\\
+0&0&\frac{1}{2}&\frac{1}{2}\\
+0&0&\frac{1}{2}&\frac{1}{2}
+\end{pmatrix}
+\end{align*}
+
+Daraus sieht man die Zustände 1 und 2 sind gemeinsam in einer Kommunikationsklasse transient und analog sind die Zustände 3 und 4 in einer Kommunikationsklasse rekurrent.
 \end{enumerate}
 
 \end{enumerate}
