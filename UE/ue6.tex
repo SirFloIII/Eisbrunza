@@ -3,7 +3,7 @@
 
 \usepackage{fullpage}
 \usepackage[utf8]{inputenc}
-%\usepackage[ngerman]{babel}
+\usepackage[ngerman]{babel}
 %\usepackage[english]{babel}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -125,14 +125,31 @@ Wir müssen $p_3$ gar nicht mehr berechnen, da $p_1$ gleich unsere Antwort ist: 
 \end{align*}
 \end{enumerate}
 
+\newpage
 %05
-\item bla
+\item Markovketten:
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{gfx/29_a.pdf}
+\caption{\label{fig:graph} Graph der Markovkette in 29 (a)}
+\end{figure}
+
 \begin{enumerate}
 %a
-\item a
+\item Die Matrix lesbar aufgeschrieben lautet
 \begin{align*}
+P = \frac{1}{10}\begin{pmatrix}
+&1&9&&&&&\\
+1&9&&&&&&\\
+&&6&2&&2&&\\
+&&&5&5&&&\\
+&&&&&4&3&3\\
+&&&&10&&&\\
+&&&&&&9&1\\
+&&&&&&&10
+\end{pmatrix}
 \end{align*}
-
+In Abbildung \ref{fig:graph} sehen wir eine graphische Representation der Markovkette. Nur positive Übergangswahrscheinlichkeiten sind eingezeichnet. Die einzige nichttriviale Kommunikationsklasse $\{1, 2\}$ ist strichliert eingezeichnet. Alle anderen Kommunikationsklassen enthalten nur einen Zustand. Damit ist die Markovkette reduzibel.
 %b
 \item b
 \begin{align*}
