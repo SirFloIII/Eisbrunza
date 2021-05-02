@@ -167,15 +167,41 @@ Erste Gleichung in zweite eingesetzt ergibt:
 $$- p_1 + 4 (3 p_1 - 1) = 1$$
 $$11 p_1 - 4 = 1$$
 $$p_1 = \frac{5}{11}$$
-Wir müssen $p_3$ gar nicht mehr berechnen, da $p_1$ gleich unsere Antwort ist: Die Maus tappt mit Wahrscheinlichtkeit $\frac{5}{11}$ in die Falle. Armes Mausi.
+Wir müssen $p_3$ gar nicht mehr berechnen, da $p_1$ gleich unsere Antwort ist: Die Maus tappt mit Wahrscheinlichkeit $\frac{5}{11}$ in die Falle. Armes Mausi.
 
 %04
-\item Mit dem Satz der Totalen Wahrscheinlichkeit und der Eigenschaft strikt stationär geht das ganz ez:
+\item Zuerst zeigen wir, dass die unbedingte Verteilung für Paare von benachbarten Zeitpunkten identisch ist. Dies ist der zweidimensionale Spezialfall der Eigenschaft strikt stationär.
+$$\pp{X_0 = x_0, X_1 = x_1} = \pp{X_{n} = x_0, X_{n+1} = x_1}$$
+Induktionsanfang $n=0$ ist \emph{trivial} beziehungsweise als Definition für die gemeinsame Verteilung zu sehen.
+Induktionsschritt mittels Satz der Totalen Wahrscheinlichkeit:
+\begin{align*}
+\pp{X_n = 0, X_{n+1} = 0} &=
+\pp{X_n = 0, X_{n+1} = 0 | X_{n-1} = 0, X_n = 0} \cdot \pp{X_{n-1} = 0, X_n = 0} + \\
+&+ \pp{X_n = 0, X_{n+1} = 0 | X_{n-1} = 1, X_n = 0} \cdot \pp{X_{n-1} = 1, X_n = 0} + \\
+&+ \pp{X_n = 0, X_{n+1} = 0 | X_{n-1} = 0, X_n = 1} \cdot \pp{X_{n-1} = 0, X_n = 1} + \\
+&+ \pp{X_n = 0, X_{n+1} = 0 | X_{n-1} = 1, X_n = 1} \cdot \pp{X_{n-1} = 1, X_n = 1} \\
+&= \pp{X_{n+1} = 0 | X_{n-1} = 0, X_n = 0} \cdot \pp{X_{n-1} = 0, X_n = 0} + \\
+&+ \pp{X_{n+1} = 0 | X_{n-1} = 1, X_n = 0} \cdot \pp{X_{n-1} = 1, X_n = 0} + \\
+&+ 0 \cdot \pp{X_{n-1} = 0, X_n = 1} + \\
+&+ 0 \cdot \pp{X_{n-1} = 1, X_n = 1} \\
+&= 0.7 \cdot 0.25 + 0.5 \cdot 0.15 \\
+&= 0.25
+\end{align*}
+Analog für die anderen drei Fälle. Ende des Induktionsbeweises.
+
+Wir berechnen $\lambda_i$:
 \begin{align*}
 \lambda_0 &= \pp{X_0 = 0} \\
 &= \pp{X_0 = 0, X_1 = 0} + \pp{X_0 = 0, X_1 = 1} \\
 &= 0.25+0.15 = 0.4 \\
 \lambda_1 &= 1-\lambda_0 = 0.6 \\
+\pp{X_n = 0} &= \pp{X_n = 0, X_{n+1} = 0} + \pp{X_n = 0, X_{n+1} = 1} \\
+&= \pp{X_0 = 0, X_1 = 0} + \pp{X_0 = 0, X_1 = 1} \\
+&= \lambda_0
+\end{align*}
+
+Es gilt also auch die eindimensionale Version von strikt stationär.
+\begin{align*}
 P_{00} &= \pp{X_{n+1} = 0 | X_n = 0} \\
 &= \pp{X_{n+1} = 0 | X_n = 0, X_{n-1} = 0}\cdot\pp{X_{n-1} = 0} + \cdots \\
 &~~~~\cdots + \pp{X_{n+1} = 0 | X_n = 0, X_{n-1} = 1}\cdot\pp{X_{n-1} = 1} \\
@@ -189,8 +215,6 @@ P_{10} &= \pp{X_{n+1} = 0 | X_n = 1} \\
 P_{01} &= 1 - P_{00} = 0.42 \\
 P_{11} &= 1 - P_{10} = 0.72
 \end{align*}
-TODO: Überlegen ob das richtig ist. Kann man aus der strikt stationär Eigenschaft wirklich schließen, dass die unbedingte Verteilung die gleiche ist wie die Startverteilung? Außerdem muss man eigentlich zeigen, dass X strikt stationär ist.
-
 Laut Markov-Eigenschaft müsste dann ja z.B. $$\pp{X_{n+1} = 0 | X_n = 0} = \pp{X_{n+1} = 0 | X_n = 0, X_{n-1} = 0}$$ gelten, aber klarerweise ist $0.58 \neq 0.7$.
 
 Wir definieren uns eine Markovkette: Als Zustandsraum $S := \{00, 10, 01, 11\}$ wählen wir Zusammenfassungen von je zwei Tagen. Die Anfangsverteilung $\lambda := (0.25, 0.15, 0.15, 0.45)$ lesen wir direkt aus der Tabelle ab. Die Berechnung der Übergangswahrscheinlichkeiten ist einen Hauch komplizierter. Sei $a, b, c, d \in \{0, 1\}$
