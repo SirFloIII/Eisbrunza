@@ -60,7 +60,7 @@
 %a
 \item $f\in M^2$? $f\in M^2_T$? Für welche $\alpha$ jeweils?
 
-$f$ ist deterministisch, somit adaptiert, und hat stetige Pfade. Laut VO ist es hinreichend dass die Norm endlich ist um in den jeweiligen Räumen zu liegen. Wenn die Norm unendlich groß ist, ist $f$ nicht im jeweiligen Raum laut Defintion. Also gilt für jedes $\alpha$ einzeln $f\in M^2_T \Leftrightarrow \norm{f}{M^2_T}<\infty$ und $f\in M^2 \Leftrightarrow \norm{f}{M^2}<\infty$.
+$f$ ist deterministisch, somit adaptiert, und hat stetige Pfade. Laut VO ist es hinreichend dass die Norm endlich ist um in den jeweiligen Räumen zu liegen. Wenn die Norm unendlich groß ist, ist $f$ nicht im jeweiligen Raum laut Defintion des Raumes. Also gilt für jedes $\alpha$ einzeln $f\in M^2_T \Leftrightarrow \norm{f}{M^2_T}<\infty$ und $f\in M^2 \Leftrightarrow \norm{f}{M^2}<\infty$.
 \begin{align*}
 \norm{f}{M^2_T} &= \Ee{\int_0^T (e^{\alpha t})^2 dt}\\
 &= \Ee{\int_0^T e^{2\alpha t} dt}\\
@@ -68,21 +68,21 @@ $f$ ist deterministisch, somit adaptiert, und hat stetige Pfade. Laut VO ist es 
 &= \Ee{\frac{e^{2\alpha T}-1}{2\alpha}}\\
 &= \frac{e^{2\alpha T}-1}{2\alpha} < \infty \text{ für alle } \alpha \in \mathbb{R}^*
 \end{align*}
-Für $\alpha=0$ versagt obige Darstellung, wir müssen diesen Fall extra behandeln: Da integrieren wir $f=1$ konstant über ein Kompaktum, das bleibt beschränkt.
+Für $\alpha=0$ versagt obige Darstellung, wir müssen diesen Fall extra behandeln: Da integrieren wir $f\equiv 1$ über ein Kompaktum, das bleibt beschränkt.
 
 Wenn wir statt bis $T$ über ganz $\mathbb{R}^+$ integrieren, dann ist das Integral unbeschränkt für alle $\alpha\geq 0$ und endlich sonst. ($\sim$ Dichte einer Exponentialverteilung!)
 
 %b
 \item $I_T(f):= \int_0^T f(t) dW(t)$, davon $\E$ und $\V$ berechnen für $\alpha=\ln 2, T=\sqrt{13}$.
 
-Wegen Martingaleigenschaft ist $\Ee{I_T(f)} = 0$.
+Wegen der Martingaleigenschaft ist $\Ee{I_T(f)} = 0$.
 \begin{align*}
 \Vv{I_T(f)} &= \Ee{(I_T(f))^2} - 0^2\\
 &=\Ee{\int_0^T f^2 dt} &\text{Itô-Iso}\\
 &=\Ee{\int_0^T e^{2\alpha t} dt}\\
 &= \frac{e^{2\alpha T}-1}{2\alpha}\\
 &= \frac{e^{2\ln 2 \sqrt{13}}-1}{2\ln 2}\\
-&= \frac{2^{2\sqrt{13}}-1}{2\ln 2}
+&= \frac{2^{2\sqrt{13}}-1}{2\ln 2} \sim 106
 \end{align*}
 
 %c
@@ -94,30 +94,49 @@ g_{xx} &= 3t^3e^{-x} = g\\
 \end{align*}
 Integraldarstellung:
 \begin{align*}
-Y(T) &= g(t, W(t))\\
+Y(T) &= g(T, W(T))\\
 &= g(0, W(0)) + \int_0^T g_x(t, W(t)) dW(t) + \int_0^T g_t(t, W(t)) + \frac{1}{2} g_{xx}(t, W(t)) dt\\
 \end{align*}
 in Differentialdarstellung:
 \begin{align*}
-dg &= g_x + g_t + \frac{1}{2} g_{xx}\\
-&= -3t^3e^{-x} + 3t^2e^{-x} + \frac{1}{2} 3t^3e^{-x}\\
-&= 3t^2e^{-x} \left(-t +1 +\frac{t}{2} \right)\\
-&= \left(\frac{1}{t} -\frac{1}{2} \right)g
+dg &= g_x dW + g_t dt + \frac{1}{2} g_{xx} dt\\
+&= -3t^3e^{-x} dW + 3t^2e^{-x} dt + \frac{1}{2} 3t^3e^{-x} dt\\
+&= 3t^3e^{-x} \left(-1dW + \frac{1}{t} dt +\frac{1}{2} dt \right)\\
+&= \left(\frac{1}{t} + \frac{1}{2} -dW \right)g
 \end{align*}
 
 \end{enumerate}
 
 %02
-\item bla
+\item Fortsetzung
 \begin{enumerate}
 %a
-\item a
+\item $h(t,x):= t^3e^{-x}$ und sei $V(t)$ ein Prozess, der für $w,x,y>0, z\in (0, \sqrt{2xy})$ erfüllt
+$$V(t) = w + x\int_0^t y-V(s) ds + z\int_0^t \sqrt{V(s)} dW(s)$$
+Wir sollen Itô-Formel anwenden in $\int$-Schreibweise.
+
+Die Funktionalgleichung für $V$ lautet in Differentialschreibweise
+$$dV = \underbrace{x(y-V)}_{a(t)}dt + \underbrace{z\sqrt{V}}_{b(t)}dW$$
+
+Die Itô-Formel sagt uns nun, wie $h(t, V(t))$ in Differentialschreibweise ausschaut:
 \begin{align*}
+dh &= b h_x dW + \left( (1+a)h_t \frac{b^2}{2} g_{xx}  \right) dt\\
+&= z\sqrt{V} (-3t^3e^{-V}) dW + \left( (1+xy-xV) (3t^2e^{-V}) + \frac{z^2V}{2} (3t^3e^{-V})  \right) dt\\
+&= 3t^3e^{-V} \left((-z\sqrt{V}dW + \left(\frac{1+xy-xV}{t} + \frac{z^2V}{2} \right) dt \right)\\
+&= h \left(\left(\frac{1+xy-xV}{t} + \frac{z^2V}{2} \right) dt  -z\sqrt{V}dW \right)
 \end{align*}
+Das übersetzen wir jetzt in $\int$-Schreibweise [wegen Platz $h:=h(s,V(s))=3s^3e^{-V(s)}$]
+$$h(t,V(t)) = h(0, V(0)) + \int_0^t h\cdot\left(\frac{1+xy-xV(s)}{s} + \frac{z^2V(s)}{2}\right) dt  - \int_0^t h\cdot z\sqrt{V(s)}dW(s)$$
 
 %b
-\item b
+\item zz: $I_n (e^{-t})$ geht im $L^2$ gegen $I(e^{-t})$, sprich: $ \norm{\int_0^n e^{-t} dW(t) - \int_0^\infty e^{-t} dW(t)}{L^2} \stackrel{n\rightarrow\infty}{\rightarrow} 0$
 \begin{align*}
+\norm{\int_0^\infty e^{-t} dW(t) - \int_0^n e^{-t} dW(t)}{L^2}^2 &= \norm{\int_n^\infty e^{-t} dW(t)}{L^2}^2\\
+&= \Ee{\left(\int_n^\infty e^{-t} dW(t)\right)^2}\\
+&= \Ee{\int_n^\infty e^{-2t} dt} &\text{Itô-Iso}\\
+&= \Ee{\left[ \frac{e^{-2t}}{-2} \right]_{t=n}^{t=\infty}}\\
+&= \Ee{ \frac{0 - e^{-2n}}{-2}}\\
+&= \frac{e^{-2n}}{2} \stackrel{n\rightarrow\infty}{\rightarrow} 0
 \end{align*}
 \end{enumerate}
 
