@@ -62,7 +62,7 @@
 
 $f$ ist deterministisch, somit adaptiert, und hat stetige Pfade. Laut VO ist es hinreichend dass die Norm endlich ist um in den jeweiligen Räumen zu liegen. Wenn die Norm unendlich groß ist, ist $f$ nicht im jeweiligen Raum laut Defintion des Raumes. Also gilt für jedes $\alpha$ einzeln $f\in M^2_T \Leftrightarrow \norm{f}{M^2_T}<\infty$ und $f\in M^2 \Leftrightarrow \norm{f}{M^2}<\infty$.
 \begin{align*}
-\norm{f}{M^2_T} &= \Ee{\int_0^T (e^{\alpha t})^2 dt}\\
+\norm{f}{M^2_T}^2 &= \Ee{\int_0^T (e^{\alpha t})^2 dt}\\
 &= \Ee{\int_0^T e^{2\alpha t} dt}\\
 &= \Ee{\left[\frac{e^{2\alpha t}}{2\alpha}\right]_{t=0}^{t=T}}\\
 &= \Ee{\frac{e^{2\alpha T}-1}{2\alpha}}\\
@@ -82,7 +82,9 @@ Wegen der Martingaleigenschaft ist $\Ee{I_T(f)} = 0$.
 &=\Ee{\int_0^T e^{2\alpha t} dt}\\
 &= \frac{e^{2\alpha T}-1}{2\alpha}\\
 &= \frac{e^{2\ln 2 \sqrt{13}}-1}{2\ln 2}\\
-&= \frac{2^{2\sqrt{13}}-1}{2\ln 2} \sim 106
+&= \frac{2^{2\sqrt{13}}-1}{2\ln 2} \\
+\sigma &= \sqrt{\Vv{I_T(f)}} \\
+&= \sqrt{\frac{2^{2\sqrt{13}}-1}{2\ln 2}} \sim 10
 \end{align*}
 
 %c
