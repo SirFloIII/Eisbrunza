@@ -120,7 +120,7 @@ $$dV = \underbrace{x(y-V)}_{a(t)}dt + \underbrace{z\sqrt{V}}_{b(t)}dW$$
 
 Die Itô-Formel sagt uns nun, wie $h(t, V(t))$ in Differentialschreibweise ausschaut:
 \begin{align*}
-dh &= b h_x dW + \left( (1+a)h_t \frac{b^2}{2} g_{xx}  \right) dt\\
+dh &= b h_x dW + \left( (1+a)h_t +\frac{b^2}{2} g_{xx}  \right) dt\\
 &= z\sqrt{V} (-3t^3e^{-V}) dW + \left( (1+xy-xV) (3t^2e^{-V}) + \frac{z^2V}{2} (3t^3e^{-V})  \right) dt\\
 &= 3t^3e^{-V} \left((-z\sqrt{V}dW + \left(\frac{1+xy-xV}{t} + \frac{z^2V}{2} \right) dt \right)\\
 &= h \left(\left(\frac{1+xy-xV}{t} + \frac{z^2V}{2} \right) dt  -z\sqrt{V}dW \right)
