@@ -93,22 +93,44 @@ Das behandelt man ganz analog zu (b) und bekommt für die Kovarianz $\sigma^2 \l
 %a
 \item $z_t := ax_t + by_t + c$ wobei $a,b,c \in \mathbb{R}$
 \begin{align*}
+\Ee{z_t} &= a\Ee{x_t}+ b\Ee{y_t} +c = a\mu_x + b\mu_y +c\\
+\Cov{z_t, z_s} &= \Cov{ax_t + by_t +c - \left( a\mu_x+ b\mu_y +c\right),ax_s + by_s +c - \left( a\mu_x+ b\mu_y +c\right)}\\
+&= \Cov{a(x_t-\mu_x) + b(y_t-\mu_y),a(x_s-\mu_x) + b(y_s-\mu_y)}\\
+&= a^2\Cov{x_t-\mu_x,x_s-\mu_x} + b^2\Cov{y_t-\mu_y,y_s-\mu_y} + \\
+&~~+ ab \Cov{x_t-\mu_x,y_s-\mu_y} +ab \Cov{x_s-\mu_x,y_t-\mu_y}\\
+&= a^2 \rho_x(t-s) + b^2\rho_y(t-s) +ab\cdot 0 +ab\cdot 0
 \end{align*}
+Für beliebige Wahl der Parameter $a,b,c$ ist $z_t$ ein $L^2$-Prozess mit shift-invariantem Mittel und Autokovarianz, also stationär. Das funktioniert auch noch falls $x_t, y_t$ korreliert sind, aber der Term ebenfalls shift-invariant ist, oder sobald $ab=0$.
 
 %b
 \item $z_t := x_{kt+m}$ wobei $k,m \in \mathbb{Z}$
 \begin{align*}
+\Ee{z_t} &= \Ee{x_{kt+m}} =\mu_x\\
+\Cov{z_t, z_s} &= \Cov{x_{kt+m}, x_{ks+m}} \\
+&=\rho_x(kt+m - (ks+m))\\
+&=\rho_x(k(t-s))
 \end{align*}
+Für beliebiges $k,m$ ist das ein stationärer Prozess.
 
 %c
 \item $z_t := a^tx_t$ wobei $a \in \mathbb{R}^*$
 \begin{align*}
+\Ee{z_t} &= \Ee{a^t x_t} = a^t\mu_x\\
+\Cov{z_t, z_s} &= \Cov{a^t x_t, a^s x_s} \\
+&= a^{t+s} \rho_x(t-s)
 \end{align*}
+Nur für $a=1$ steht da ein stationärer Prozess, andernfalls hängen sowohl Mittelwert als auch Autokovarianz von Zeitshifts ab. Damit bei $a\neq1$ obige Ausdrücke shift-invariant bleiben, müsste $\mu_x=0$ und $\forall t: \rho_x(t)=0$ gelten, aber wir haben $\rho_x(0)=\Vv{x}>0$ bei stochastischem $x_t$.
 
 %d
 \item $z_t := x_t + x_{t-1}$
 \begin{align*}
+\Ee{z_t} &= \Ee{ x_t + x_{t-1}} = 2\mu_x\\
+\Cov{z_t, z_s} &= \Cov{x_t + x_{t-1}, x_s + x_{s-1}} \\
+&= \Cov{x_t , x_s} + \Cov{x_t ,x_{s-1}} + \Cov{x_{t-1}, x_s} + \Cov{x_{t-1},x_{s-1}}\\
+&= \rho_x(t-s) + \rho_x(t-s+1) + \rho_x(t-1-s) + \rho_x(t-1-s+1)\\
+&= \rho_x(t-s-1) + 2\rho_x(t-s) + \rho_x(t-s+1)
 \end{align*}
+Mittel und Autokovarianz sind shift-invariant und $z_t\in L^2$, also ist das ein stationärer Prozess.
 \end{enumerate}
 
 %33
