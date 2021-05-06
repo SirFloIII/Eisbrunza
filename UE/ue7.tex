@@ -1,0 +1,143 @@
+\documentclass[a4paper,11pt,notitlepage,fullpage]{article}
+%\documentclass{report}
+
+\usepackage{fullpage}
+\usepackage[utf8]{inputenc}
+%\usepackage[ngerman]{babel}
+%\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{bbm}
+%\usepackage{algorithm}
+%\usepackage{algpseudocode}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hhline}
+\usepackage{amsthm}
+\usepackage{cite}
+\usepackage{wrapfig}
+\usepackage{hyperref}
+\usepackage{titling}
+\usepackage{color}
+
+\setlength{\droptitle}{-60pt}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\p}{\mathbb P}
+\newcommand{\pp}[1]{\mathbb P\left[#1\right]}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Ee}[1]{\mathbb E\left[#1\right]}
+\newcommand{\V}{\mathbb V}
+\newcommand{\Vv}[1]{\mathbb V\left[#1\right]}
+\newcommand{\cov}{\mathbb Cov}
+\newcommand{\Cov}[1]{\mathbb Cov\left[#1\right]}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\ind}{\mathbbm{1}}
+\newcommand{\indd}[1]{\mathbbm{1}_{#1}}
+\newcommand{\norm}[2]{\left|\left|{#1}\right|\right|_{#2}}
+
+\begin{document}
+\author{Florian Bogner \& Alexander Palmrich}
+\title{Stochastische Prozesse - Übung 7}
+\maketitle
+
+\begin{enumerate}
+\setcounter{enumi}{30}
+
+%%für ein Bild das copy-pasten und reinkommentieren
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[width=0.9\textwidth]{gfx/bildname.png}
+%\label{fig1}
+%\caption{TODO Beschreibung des Bildes}
+%\end{figure}
+
+%31
+\item $W(t)$ sei ein Wiener Prozess mit $\Ee{W(1)^2}=\sigma^2$. Wir sollen Stationarität, Mittelwert und Autokovarianz bestimmen von
+\begin{enumerate}
+%a
+\item $x_t := W(t)$ für $t\in \mathbb{N}$
+\begin{align*}
+\end{align*}
+
+%b
+\item $y_t := W(t)-W(t-1)$ für $t\in \mathbb{N}$
+\begin{align*}
+\end{align*}
+
+%c
+\item $z_t := W(t+1)-W(t-1)$ für $t\in \mathbb{N}$
+\begin{align*}
+\end{align*}
+\end{enumerate}
+
+
+%32
+\item $x_t, y_t$ seien unkorrelierte stationäre Zeitreihen über $\mathbb{Z}$ mit Mitteln $\mu_x, \mu_y$ und Autokovarianzen $\rho_x(k), \rho_y(k)$. Wir sollen Stationarität, Mittelwert und Autokovarianz bestimmen von
+\begin{enumerate}
+%a
+\item $z_t := ax_t + by_t + c$ wobei $a,b,c \in \mathbb{R}$
+\begin{align*}
+\end{align*}
+
+%b
+\item $z_t := x_{kt+m}$ wobei $k,m \in \mathbb{Z}$
+\begin{align*}
+\end{align*}
+
+%c
+\item $z_t := a^tx_t$ wobei $a \in \mathbb{R}^*$
+\begin{align*}
+\end{align*}
+
+%d
+\item $z_t := x_t + x_{t-1}$
+\begin{align*}
+\end{align*}
+\end{enumerate}
+
+%33
+\item Wir sollen Stationarität, Mittelwert und Autokovarianz bestimmen von
+$$x_t := A + (-1)^t B$$
+wobei $A, B$ Zufallsvariablen sind. Was müssen die können? Plots von Realisierungen!
+
+\begin{align*}
+\end{align*}
+
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[width=0.9\textwidth]{gfx/bildname.png}
+%\label{fig1}
+%\caption{Beispiele wie $A+(-1)^tB$ ausschauen kann.}
+%\end{figure}
+
+%34
+\item Für welche der folgenden Folgen folgt positive Semidefinitheit definitiv aus ihrer Definition? Wann gilt Stationarität? Plots!
+\begin{enumerate}
+%a
+\item $a_k := (\ldots, ~0, ~0.8, ~a_0=1, ~0.8, ~0, ~\ldots)$
+\begin{align*}
+\end{align*}
+
+%b
+\item $a_k := (\ldots, ~1, ~a_0=1,  ~1, ~\ldots)$
+\begin{align*}
+\end{align*}
+
+%c
+\item $a_k := (\ldots, ~0, ~-0.25, ~a_0=1, ~0.25, ~0, ~\ldots)$
+\begin{align*}
+\end{align*}
+
+%d
+\item $a_k := 1.25^{|k|}$
+\begin{align*}
+\end{align*}
+\end{enumerate}
+
+
+\end{enumerate}
+\end{document}
