@@ -164,6 +164,7 @@ Als zusätzliche Forderung bekommen wir also, dass $B$ im Erwartungswert $0$ ist
 \end{align*}
 Das ist also unter bereits geforderten Vorraussetzungen auch erfüllt.
 \end{itemize}
+Bonus: Wenn $B$ symetrisch verteilt ist, i.e. $B \sim -B$, dann ist $(x_t)$ auch strikt stationär.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.9\textwidth]{gfx/33_fig.png}
@@ -175,25 +176,41 @@ Das ist also unter bereits geforderten Vorraussetzungen auch erfüllt.
 \item Für welche der folgenden Folgen folgt positive Semidefinitheit definitiv aus ihrer Definition? Wann gilt Stationarität? Plots!
 \begin{enumerate}
 %a
-\item $a_k := (\ldots, ~0, ~0.8, ~a_0=1, ~0.8, ~0, ~\ldots)$
+\item $a_k := \begin{cases}
+1 & k = 0 \\
+0.8 & k \in \{-1, 1\} \\
+0 & \text{sonst}
+\end{cases}$
 \begin{align*}
 \end{align*}
 
 %b
-\item $a_k := (\ldots, ~1, ~a_0=1,  ~1, ~\ldots)$
+\item $b_k := 1$
 \begin{align*}
 \end{align*}
 
 %c
-\item $a_k := (\ldots, ~0, ~-0.25, ~a_0=1, ~0.25, ~0, ~\ldots)$
+\item $c_k := \begin{cases}
+-0.25 & k = -1 \\
+1 & k = 0 \\
+0.25 & k = 1 \\
+0 & \text{sonst}
+\end{cases}$
 \begin{align*}
 \end{align*}
 
 %d
-\item $a_k := 1.25^{|k|}$
+\item $d_k := 1.25^{|k|}$
 \begin{align*}
 \end{align*}
 \end{enumerate}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.9\textwidth]{gfx/34_fig.png}
+\label{fig2}
+\caption{Die betrachteten Folgen.}
+\end{figure}
 
 
 \end{enumerate}
