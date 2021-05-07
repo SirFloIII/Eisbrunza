@@ -134,19 +134,42 @@ Mittel und Autokovarianz sind shift-invariant und $z_t\in L^2$, also ist das ein
 \end{enumerate}
 
 %33
-\item Wir sollen Stationarität, Mittelwert und Autokovarianz bestimmen von
+\item Wir berechnen Erwartungswert und Autokovarianz von
 $$x_t := A + (-1)^t B$$
-wobei $A, B$ Zufallsvariablen sind. Was müssen die können? Plots von Realisierungen!
-
+wobei $A, B$ Zufallsvariablen sind.
 \begin{align*}
+\Ee{x_t} &= \Ee{A + (-1)^t B} \\
+&= \Ee{A} + (-1)^t \Ee{B} \\
+\Cov{x_t, x_s} &= \Cov{A + (-1)^t B, A + (-1)^s B} \\
+&= \Cov{A, A} + ((-1)^t + (-1)^s) \Cov{A, B} + (-1)^{t+s} \Cov{B, B} \\
+&= \Vv{A} + 2\cdot \ind_{t \equiv s(2)} \Cov{A, B} + (-1)^{t+s} \Vv{B}
 \end{align*}
-
-%\begin{figure}[h!]
-%\centering
-%\includegraphics[width=0.9\textwidth]{gfx/bildname.png}
-%\label{fig1}
-%\caption{Beispiele wie $A+(-1)^tB$ ausschauen kann.}
-%\end{figure}
+Es müssen also Erwartungswerte, Varianzen und Covarianz von $A$ und $B$ existieren, damit die Erwartungswerte $\Ee{x_t}$ sowie die Autokorrelationsfunktion existiert. Die Bedingungen für schwach stationär:
+\begin{itemize}
+\item $x_t$ ist quadratisch integierbar:
+\begin{align*}
+\Ee{x_t^2} &= \Ee{A^2 + 2(-1)^tAB + B^2} \\
+&= \Vv A + 2(-1)^t\Ee{AB} + \Vv B \\
+&= \Vv A + 2(-1)^t(\Cov{A, B} + \Ee A \Ee B) + \Vv B < \infty \\
+\end{align*}
+Das ist unter den obigen Bedingungen bereits erfüllt.
+\item Zeitunabhängigkeit $\Ee{x_t} = \Ee{x_0}$: für $t\equiv0~(2)$ ist dies bereits erfüllt. Für $t\not\equiv0~(2)$ haben wir
+$$\Ee{A} - \Ee{B} \stackrel{!}{=} \Ee{A} + \Ee{B} \Rightarrow \Ee{B} \stackrel{!}{=} 0$$
+Als zusätzliche Forderung bekommen wir also, dass $B$ im Erwartungswert $0$ ist.
+\item Verschiebungstreue: Aufgrund der zweiten Eigenschaft und dem Steinerschen Verschiebungssatz kann man auch die Kovarianz vergleichen.
+\begin{align*}
+\Cov{x_t, x_s} &= \Vv{A} + 2\cdot \ind_{t \equiv s(2)} \Cov{A, B} + (-1)^{t+s} \Vv{B} \\
+&= \Vv{A} + 2\cdot \ind_{t + k \equiv s + k(2)} \Cov{A, B} + (-1)^{t+s + 2k} \Vv{B} \\
+&=\Cov{x_{t+k}, x_{s+k}}
+\end{align*}
+Das ist also unter bereits geforderten Vorraussetzungen auch erfüllt.
+\end{itemize}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.9\textwidth]{gfx/33_fig.png}
+\label{fig1}
+\caption{Beispiele wie $A+(-1)^tB$ ausschauen kann.}
+\end{figure}
 
 %34
 \item Für welche der folgenden Folgen folgt positive Semidefinitheit definitiv aus ihrer Definition? Wann gilt Stationarität? Plots!
