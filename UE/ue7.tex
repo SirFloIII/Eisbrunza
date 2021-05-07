@@ -173,7 +173,7 @@ Bonus: Wenn $B$ symetrisch verteilt ist, i.e. $B \sim -B$, dann ist $(x_t)$ auch
 \end{figure}
 
 %34
-\item Für welche der folgenden Folgen folgt positive Semidefinitheit definitiv aus ihrer Definition? Wann gilt Stationarität? Plots!
+\item Für welche der folgenden Folgen folgt positive Semidefinitheit definitiv aus ihrer Definition?
 \begin{enumerate}
 %a
 \item $a_k := \begin{cases}
@@ -181,13 +181,26 @@ Bonus: Wenn $B$ symetrisch verteilt ist, i.e. $B \sim -B$, dann ist $(x_t)$ auch
 0.8 & k \in \{-1, 1\} \\
 0 & \text{sonst}
 \end{cases}$
+
+Eine Töplitzmartix $A_p$ zu dieser Folge hat auf der Hauptdiagonale lauter Einser, und in beiden Nebendiagonalen 0.8 stehen. Schon für $A_3$ ist das eine indefinite Matrix, denn
 \begin{align*}
+(1,0,0)^T A_3 (1,0,0) &= 1\cdot 1^2 > 0\\
+(1,-1,1)^T A_3 (1,-1,1) &= \underbrace{3\cdot (\pm 1)^2}_{\text{Hauptdiagonale}} + \underbrace{4\cdot 0.8\cdot (\pm 1)(\mp 1)}_{\text{Nebendiagonalen}}\\
+&= 3 - 3.2 < 0
 \end{align*}
+Die Folge ist zwar symmetrisch (d.h. $a_k = a_{-k}$), aber sie ist nicht positiv semidefinit.
 
 %b
 \item $b_k := 1$
+
+Eine zugehörige Töplitz-Matrix $A_p$ hat lauter Einser als Einträge. So eine Matrix lässt sich Darstellen als $A_p= (1, \ldots, 1)^T (1, \ldots, 1)$, womit für beliebige Vektoren $x\in \mathbb{R}^p$ folgt
 \begin{align*}
+x^T A_p x &= x^T \left( (1, \ldots, 1)^T (1, \ldots, 1) \right) x\\
+&= \left( x^T  (1, \ldots, 1)^T \right) \left( (1, \ldots, 1)  x \right)\\
+&=\left( (1, \ldots, 1) x \right)^T \left( (1, \ldots, 1)  x \right)\\
+&= \left( \sum_{i=1}^n x_i \right)^2 \geq 0
 \end{align*}
+was die positive definitheit von $A_p$ zeigt. Außerdem ist die Folge symmetrisch, insgesamt also positiv semidefinit.
 
 %c
 \item $c_k := \begin{cases}
@@ -196,13 +209,19 @@ Bonus: Wenn $B$ symetrisch verteilt ist, i.e. $B \sim -B$, dann ist $(x_t)$ auch
 0.25 & k = 1 \\
 0 & \text{sonst}
 \end{cases}$
-\begin{align*}
-\end{align*}
+
+Diese Folge ist nicht symmetrisch, daher nicht positiv definit.
 
 %d
 \item $d_k := 1.25^{|k|}$
+
+Wir zeigen wie bei (a), dass nicht alle Töplitz-Matrizen positiv semidefinit sind. Jetzt genügt uns schon die $2\times 2$-Matrix dafür:
 \begin{align*}
+(1,0) A_2 (1,0) &= 1\cdot 1^2 > 0\\
+(1,-1) A_2 (1,-1) &= \underbrace{2\cdot 1.25^0 \cdot (\pm 1)^2}_{\text{Hauptdiagonale}} + \underbrace{2\cdot 1.25^{|\pm 1|}\cdot (\pm 1)(\mp 1)}_{\text{Nebendiagonalen}}\\
+&= 2 - 2.5 < 0
 \end{align*}
+Also ist die Folge nicht positiv semidefinit.
 \end{enumerate}
 
 \begin{figure}[h!]
