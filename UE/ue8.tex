@@ -69,6 +69,7 @@
 Der Schätzer ist konsistent, i.e. $\limm_{T\to\infty}~\bar x_T = \mu$ nur dann wenn $z = \mu$ f.s. ist.
 \end{enumerate}
 
+\newpage
 %36
 \item Aus der Vorlesung wissen wir, dass $\gamma(k) = \sigma^2 \sum_j b_{j+k}b_j$.
 \begin{enumerate}
@@ -116,8 +117,22 @@ Gdw. $b := b_0 = b_1$, dann $\rho(1) = \frac{b^2}{2b^2} = \frac{1}{2}$.
 
 Umgekehrt, gdw. $b := b_0 = -b_1$, dann $\rho(1) = \frac{-b^2}{2b^2} = -\frac{1}{2}$.
 
-%38
-\item
+\newpage
+%38 (Für $j < 0$ ist $b_j := -a^j$, sonst 0)
+\item Wir zeigen, dass die Koeffizienten quadratisch summierbar sind. Mit $i := -j-1$, einer kreativen Null, $c := \frac{1}{a^2}$ und dem Hinweis folgt, dass $$\sum_{j=-\infty}^{-1} a^{2j} = \sum_{i=0}^{\infty} a^{-2i-2} = a^{-2} \sum_{i = 0}^\infty (\frac{1}{a^2})^i = \frac{1}{a^2}(1-\frac{1}{a^2})^{-1} = \frac{1}{a^2-1} < \infty$$
+
+
+%= - (\frac{1}{a^2})^0 + \sum_{i = 0}^\infty (\frac{1}{a^2})^i = - 1 + (1-\frac{1}{a^2})^{-1} < \infty$$
+
+Wir berechnen die Autokovarianzfunktion für oBdA $k \leq 0$. Für positive $k$ bedenkt man, dass die AKF symmetrisch ist. 
+\begin{align*}
+\gamma(k) &= \sigma^2 \sum_{j=-\infty}^{-1} b_{j+k}b_j \\
+&= \sigma^2 \sum_{j=-\infty}^{-1} a^{j+k+j} \\
+&= \sigma^2 a^k \sum_{j=-\infty}^{-1} a^{2j} \\
+&= \frac{\sigma^2 a^k }{a^2-1} \\
+\rho(k) &= \frac{\gamma(k)}{\gamma(0)} = a^{-|k|}
+\end{align*}
+
 
 \end{enumerate}
 
