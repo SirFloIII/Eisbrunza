@@ -4,14 +4,15 @@
 \usepackage{fullpage}
 \usepackage[utf8]{inputenc}
 %\usepackage[ngerman]{babel}
-\usepackage[english]{babel}
+%\usepackage[english]{babel}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{latexsym}
 \usepackage{mathtools}
 \usepackage{listings}
-\usepackage{algorithm}
-\usepackage{algpseudocode}
+\usepackage{bbm}
+%\usepackage{algorithm}
+%\usepackage{algpseudocode}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{hhline}
@@ -24,6 +25,19 @@
 
 \setlength{\droptitle}{-60pt}
 
+\newcommand{\R}{\mathbb R}
+\newcommand{\p}[1]{\mathbb P\left[#1\right]}
+\newcommand{\E}[1]{\mathbb E\left[#1\right]}
+\newcommand{\V}{\mathbb V}
+\newcommand{\Vv}[1]{\mathbb V\left[#1\right]}
+\newcommand{\cov}{\mathbb Cov}
+\newcommand{\Cov}[1]{\mathbb Cov\left[#1\right]}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\ind}{\mathbbm{1}}
+\newcommand{\indd}[1]{\mathbbm{1}_{#1}}
+\newcommand{\norm}[2]{\left|\left|{#1}\right|\right|_{#2}}
+\DeclareMathOperator*{\limm}{l.\hspace{-0.18em}i.\hspace{-0.19em}m}
+
 
 \begin{document}
 \author{Florian Bogner}
@@ -35,6 +49,25 @@
 
 %35
 \item 
+\begin{enumerate}
+\item Mit Bsp. 23 (1) erkennt man: Der Prozess ist eine Linearkombination aus schwach stationären Prozessen und damit schwach stationär. $\E{x_t} = \mu + 0$ und $\gamma(k) = \Cov{z, z} + \Cov{\epsilon_t, \epsilon_{t+k}} = \gamma^2 + \indd{k=0}\sigma^2$.
+
+\item Die Vorraussetzungen der quadratischen Integrierbarkeit der Folgenglieder und des Grenzwertes folgt aus \emph{schwach stationär}. Damit bleibt zu zeigen:
+\begin{align*}
+\limm_{T\to\infty}~\bar x_T &\stackrel{!}{=} z \\
+\Leftrightarrow 0 &\stackrel{!}{=} \lim_{T\to\infty} \E{(\bar x_T - z)^2} \\
+&= \lim_{T\to\infty} \E{\left(\left(\frac{1}{T}\sum_{t=1}^T x_t\right) - z\right)^2} \\
+&= \lim_{T\to\infty} \E{\left(\left(\frac{1}{T}\sum_{t=1}^T z + \epsilon_t\right) - z\right)^2} \\
+&= \lim_{T\to\infty} \E{\left(\frac{1}{T}\sum_{t=1}^T \epsilon_t\right)^2} \\
+&= \lim_{T\to\infty} \frac{1}{T^2} \sum_{t=1}^T \E{\epsilon_t^2} \\
+&= \lim_{T\to\infty} \frac{1}{T^2} \sum_{t=1}^T \sigma^2 \\
+&= \lim_{T\to\infty} \frac{1}{T} \sigma^2 \\
+&= 0
+\end{align*}
+\qed
+
+Der Schätzer ist konsistent, i.e. $\limm_{T\to\infty}~\bar x_T = \mu$ nur dann wenn $z = \mu$ f.s. ist.
+\end{enumerate}
 
 %36
 \item Aus der Vorlesung wissen wir, dass $\gamma(k) = \sigma^2 \sum_j b_{j+k}b_j$.
