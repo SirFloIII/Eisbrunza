@@ -37,7 +37,32 @@
 \item 
 
 %36
-\item
+\item Aus der Vorlesung wissen wir, dass $\gamma(k) = \sigma^2 \sum_j b_{j+k}b_j$.
+\begin{enumerate}
+\item $x_t = \epsilon_t + 0.25 \epsilon_{t-1}$ mit $(\epsilon_t) \sim WN(\sigma^2 = 16)$
+\begin{align*}
+\gamma(0) &= 16 \cdot (1^2 + 0.25^2) = 17 \\
+\gamma(-1) = \gamma(1) &= 16 \cdot (1 \cdot 0.25) = 4 \\
+\gamma(k) &= 0~~~\text{sonst.}
+\end{align*}
+
+\item $x_t = \epsilon_t + 0.8 \epsilon_{t-1} - 0.4 \epsilon_{t-2} + 0.2 \epsilon_{t-3} - 0.1 \epsilon_{t-4}$ mit $(\epsilon_t) \sim WN(\sigma^2 = 2)$
+\begin{align*}
+\gamma(0) &= 2 \cdot (1^2 + 0.8^2 + 0.4^2 + 0.2^2 + 0.1^2) = 3.7 \\
+\gamma(-1) = \gamma(1) &= 2 \cdot (1 \cdot 0.8+ 0.8 \cdot 0.4 + 0.4 \cdot 0.2 + 0.2 \cdot 0.1) = 2.44 \\
+\gamma(-2) = \gamma(2) &= 2 \cdot (1 \cdot 0.4+ 0.8 \cdot 0.2 + 0.4 \cdot 0.1) = 1.2 \\
+\gamma(-3) = \gamma(3) &= 2 \cdot (1 \cdot 0.2+ 0.8 \cdot 0.1) = 0.56 \\
+\gamma(-4) = \gamma(4) &= 2 \cdot (1 \cdot 0.1) = 0.2 \\
+\gamma(k) &= 0~~~\text{sonst.}
+\end{align*}
+
+\item $x_t = \epsilon_t + 4 \epsilon_{t-1}$ mit $(\epsilon_t) \sim WN(\sigma^2 = 1)$
+\begin{align*}
+\gamma(0) &= 1 \cdot (1^2 + 4^2) = 17 \\
+\gamma(-1) = \gamma(1) &= 1 \cdot (1 \cdot 4) = 4 \\
+\gamma(k) &= 0~~~\text{sonst.}
+\end{align*}
+\end{enumerate}
 
 %37
 \item Laut Formeln aus der VO haben wir:
@@ -52,11 +77,11 @@ Mit dem Binomialsatz ergibt sich:
 &= b_0^2 \pm 2b_0b_1 + b_1^2 \\
 \Leftrightarrow \mp 2b_0b_1 &\leq b_0^2 + b_1^2 \\
 \Leftrightarrow \mp \frac{b_0 \cdot b_1}{b_0^2 + b_1^2} &\leq \frac{1}{2} \\
-\Rightarrow |\rho(1)| &\leq \frac{1}{2}
+\Leftrightarrow |\rho(1)| &\leq \frac{1}{2}
 \end{align*}
+Gdw. $b := b_0 = b_1$, dann $\rho(1) = \frac{b^2}{2b^2} = \frac{1}{2}$.
 
-
-
+Umgekehrt, gdw. $b := b_0 = -b_1$, dann $\rho(1) = \frac{-b^2}{2b^2} = -\frac{1}{2}$.
 
 %38
 \item
