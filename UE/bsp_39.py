@@ -17,11 +17,11 @@ def prognose(h, k):
     err = gamma[0] - c @ GAMMA @ c.T
     return c, err
 
-print("\\begin{table}")
-print("h", "k", "\\sigma_{h,k}^2", *[f"c_{i}" for i in range(1,6)], sep = " & ", end = " \\\\\n")
+print("\\begin{table}\n\\begin{tabular}{|r|r|r|rrrrr|}\n\\hline")
+print("$h$", "$k$", "$\\sigma_{h,k}^2$", *[f"$c_{i}$" for i in range(1,6)], sep = " & ", end = " \\\\ \\hline\n")
 for h, k in zip((1,3,5,1,3,5), (1,1,1,5,5,5)):
     c, err = prognose(h, k)
     print(h, k, f"{err:1.3f}", *[f"{cc:1.3f}" for cc in c], sep = " & ", end = " \\\\\n")
-print("\\end{table}")
+print("\\hline\n\\end{tabular}\n\end{table}")
 
 

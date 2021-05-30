@@ -28,8 +28,8 @@
 \newcommand{\R}{\mathbb R}
 \newcommand{\p}{\mathbb P}
 \newcommand{\pp}[1]{\mathbb P\left[#1\right]}
-\newcommand{\E}{\mathbb E}
-\newcommand{\Ee}[1]{\mathbb E\left[#1\right]}
+%\newcommand{\E}{\mathbb E}
+\newcommand{\E}[1]{\mathbb E\left[#1\right]}
 \newcommand{\V}{\mathbb V}
 \newcommand{\Vv}[1]{\mathbb V\left[#1\right]}
 \newcommand{\Cov}[1]{\mathbb Cov\left[#1\right]}
@@ -37,6 +37,8 @@
 \newcommand{\ind}{\mathbbm{1}}
 \newcommand{\indd}[1]{\mathbbm{1}_{#1}}
 \newcommand{\norm}[2]{\left|\left|{#1}\right|\right|_{#2}}
+\DeclareMathOperator*{\limm}{l.\hspace{-0.18em}i.\hspace{-0.19em}m}
+\DeclareMathOperator*{\spann}{span}
 
 \begin{document}
 \author{Florian Bogner \& Alexander Palmrich}
@@ -54,76 +56,218 @@
 %\caption{TODO Beschreibung des Bildes}
 %\end{figure}
 
-%01
-\item bla
+%39
+\item Mit einfachem Pythoncode kann man die Folien nachtanzen und Formel (3.8) verwenden. Diese funktioniert nur für positiv definites $\Gamma_k$ aber wir wissen, dass $\Gamma_k$ positiv semidefinit ist und wenn es singulär wäre, würde das Program eine \verb|LinAlgException| werfen.
+\begin{verbatim}
+import numpy as np
+import scipy.linalg as lin
+
+gamma = np.array((1.83,
+                 -0.19,
+                 -0.09,
+                  0.91,
+                 -0.10,
+                  0,0,0,0,0,0))
+
+def prognose(h, k):
+    GAMMA = lin.toeplitz(gamma[0:k])
+    c = gamma[h:h+k] @ lin.inv(GAMMA)
+    err = gamma[0] - c @ GAMMA @ c.T
+    return c, err
+\end{verbatim}
+
+Mit der \verb|prognose|-Funktion kommt man nun auf die gesuchten Werte:
+\begin{table}[h]
+\centering
+\begin{tabular}{|r|r|r|rrrrr|}
+\hline
+$h$ & $k$ & $\sigma_{h,k}^2$ & $c_1$ & $c_2$ & $c_3$ & $c_4$ & $c_5$ \\ \hline
+1 & 1 & 1.810 & -0.104 &&&&\\
+3 & 1 & 1.377 & 0.497 &&&&\\
+5 & 1 & 1.830 & 0.000 &&&&\\
+1 & 5 & 1.361 & -0.106 & -0.024 & 0.497 & 0.052 & 0.036 \\
+3 & 5 & 1.229 & 0.660 & -0.004 & -0.002 & -0.328 & 0.004 \\
+5 & 5 & 1.830 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 \\
+\hline
+\end{tabular}
+\end{table}
+
+Wenn $h>q$, dann ist ja $\gamma_h^k = \vec0$ und damit ist $c \Gamma_k = \gamma_h^k = 0$ ein homogenes Gleichungsystem. Ein Solches hat immer die Nulllösung als Lösung. Wegen der Eindeutigkeit, die der Projektionssatz garantiert, ist damit $\hat x_{t+h} = c \cdot x_t^k = 0$. \qed
+
+
+%40
+\item $x_t = \epsilon_t - \epsilon_{t-1}$
+$$
+\tilde x_{t+1}^{(k)} := \frac{-1}{k+1} (k x_t + (k-1)x_{t-1} + \ldots + 2 x_{t+2-k} + 1 x_{t+1-k})
+$$
 \begin{enumerate}
 %a
-\item a
+\item 
 \begin{align*}
+\tilde u_{t+1}^{(k)} :\hspace{-0.3em}&= x_{t+1} - \tilde x_{t+1}^{(k)} \\
+&= x_{t+1} + \frac{1}{k+1} (k x_t + (k-1)x_{t-1} + \ldots + 1 x_{t+1-k}) \\
+&= \frac{1}{k+1} ((k+1) x_{t+1} + k x_t + \ldots + 1 x_{t+1-k}) \\
+&= \frac{1}{k+1} ((k+1) (\epsilon_{t+1} - \epsilon_t) + k (\epsilon_t - \epsilon_{t-1}) + \ldots + 1 (\epsilon_{t+1-k} - \epsilon_{t-k})) \\
+&= \frac{1}{k+1} ((k+1) \epsilon_{t+1} - \epsilon_t - \epsilon_{t-1} - \ldots - \epsilon_{t-k})
 \end{align*}
 
 %b
-\item b
+\item Wir wollen zeigen, dass $\tilde x_{t+1}^{(k)}$ die optimale Ein-Schrittprognose aus $k$ vergangenen Werten ist. Das ist der Fall, wenn $\tilde x_{t+1}^{(k)} \in \mathbb M := \text{span}(x_t, \ldots, x_{t+1-k})$ und der Fehler $\tilde u_{t+1}^{(k)}$ orthogonal auf $\mathbb M$ steht, was wiederum äquivalent dazu ist, auf jeden Basisvektor $x_t, \ldots, x_{t+1-k}$ orthogonal zu stehen.
+
+Die erste Bedinung ist trivialerweise erfüllt, da ja $\tilde x_{t+1}^{(k)}$ genau als solche Linearkombination definiert ist.
+
+Für die zweite Bedingung rechnen wir:
 \begin{align*}
+\langle \tilde u_{t+1}^{(k)}, x_{t+1-j} \rangle &= \E{\tilde u_{t+1}^{(k)} x_{t+1-j}} \\
+&= \E{\frac{1}{k+1} ((k+1) \epsilon_{t+1} - \epsilon_t - \epsilon_{t-1} - \ldots - \epsilon_{t-k}) \cdot (\epsilon_{t+1-j} - \epsilon_{t-j})} \\
+&= \frac{1}{k+1} (\E{-\epsilon_{t+1-j}^2} + \E{\epsilon_{t-j}^2}) \\
+&= \frac{1}{k+1} (-\sigma^2 + \sigma^2) \\
+&= 0
 \end{align*}
+Man beachte, dass die Mischterme wegfallen, da die $\epsilon_i$ untereinander unkorreliert sind.
+
+%c
+\item \begin{align*}
+\E{\tilde u_{t+1}^2} &= \E{\frac{1}{(k+1)^2} ((k+1) \epsilon_{t+1} - \epsilon_t - \epsilon_{t-1} - \ldots - \epsilon_{t-k})^2} \\
+&= \frac{1}{(k+1)^2} (\E{(k+1)^2 \epsilon_{t+1}^2} + \E{\epsilon_t^2} + \ldots + \E{\epsilon_{t-k}^2}) \\
+&= \frac{1}{(k+1)^2} ((k+1)^2\sigma^2 + \sigma^2 + \ldots + \sigma^2) \\
+&= \sigma^2 + \frac{1}{(k+1)^2}(k+1)\sigma^2 \\
+&= \sigma^2 + \frac{1}{k+1}\sigma^2 \\
+&= 1 + \frac{1}{k+1} = \frac{k+2}{k+1} &(\sigma^2 = 1)
+\end{align*}
+
+%d
+\item Alle Funktionen sind in $\mathbb L_2$.
+\begin{align*}
+\limm_{k\to\infty}~\hat u_{t+1} &\stackrel{!}{=} \epsilon_{t+1} \\
+\Leftrightarrow 0 &\stackrel{!}{=} \lim_{k\to\infty} \E{(\hat u_{t+1} - \epsilon_{t+1})^2} \\
+&= \lim_{k\to\infty} \E{(\frac{1}{k+1} ((k+1) \epsilon_{t+1} - \epsilon_t - \epsilon_{t-1} - \ldots - \epsilon_{t-k}) - \epsilon_{t+1})^2} \\
+&= \lim_{k\to\infty} \frac{1}{(k+1)^2} \E{(- \epsilon_t - \epsilon_{t-1} - \ldots - \epsilon_{t-k})^2} \\
+&= \lim_{k\to\infty} \frac{1}{(k+1)^2} (k+1) \sigma^2 \\
+&= \lim_{k\to\infty} \frac{\sigma^2}{k+1} \\
+&= 0
+\end{align*} \qed
 \end{enumerate}
 
+%41
+\item Wir wollen zeigen, dass $z \in \mathbb M := \overline\spann(x_t, x_{t-1}, \ldots)$ und dass $u := z - x_{t+h} \perp \mathbb M$.
+\begin{itemize}
+\item Span-Bedingung: Um zu sehen, dass $z$ in $\mathbb M$ liegt, mittlen wir das Rauschen weg. Wir definieren uns eine Folge $z_k \in \spann(x_t, \ldots, x_{t-k})$
+$$
+z_k := \frac{1}{k+1} \sum_{i=0}^k x_{t-i} = z + \frac{1}{k+1} \sum_{i=0}^k \epsilon_{t-i}
+$$
+Nun zeigen wir, dass $\limm z_k = z$ wie in Bsp. 35:
+\begin{align*}
+\limm_{k\to\infty}~z_k &\stackrel{!}{=} z \\
+\Leftrightarrow 0 &\stackrel{!}{=} \lim_{k\to\infty} \E{(z_k - z)^2} \\
+&= \lim_{k\to\infty} \E{\left(\frac{1}{k+1} \sum_{i=0}^k \epsilon_{t-i}\right)^2} \\
+&= \lim_{k\to\infty} \frac{1}{(k+1)^2}\E{\sum_{i=0}^k \epsilon_{t-i}^2} \\
+&= \lim_{k\to\infty} \frac{1}{(k+1)^2}(k+1)\sigma^2 \\
+&= \lim_{k\to\infty} \frac{\sigma^2}{k+1} \\
+&= 0
+\end{align*}
 
-%02
-\item bla
+\item Orthogonalitätsbedingung: Es reicht zu zeigen, dass $u$ orthogonal auf alle Basisvektoren steht, i.e. $\forall j \leq t : u\perp x_j$.
+\begin{align*}
+\langle u, x_j \rangle &= \E{u\cdot x_j} \\
+&= \E{(z - x_{t+h}) \cdot x_j} \\
+&= \E{(z - (z + \epsilon_{t+h})) \cdot (z + \epsilon_j)} \\
+&= \E{-\epsilon_{t+h} \cdot (z + \epsilon_j)} \\
+&= - \Cov{\epsilon_{t+h}, z} - \Cov{\epsilon_{t+h}, \epsilon_j} \\
+&= 0
+\end{align*}\qed
+\end{itemize}
+\begin{align*}
+\end{align*}
+
+
+
+%42
+\item Wie auf Folie 55 im zweiten Teil der VO berechnen wir: (mit $b_j := a^j$)
 \begin{enumerate}
 %a
-\item a
+\item
 \begin{align*}
+\sum_{i = 0}^\infty b_i^2 &= \sum_{i = 0}^\infty a^{2i} \\
+&= \sum_{i = 0}^\infty (a^2)^i \\
+&= \frac{1}{1-a^2}
 \end{align*}
 
 %b
-\item b
+\item oBdA $k \geq 0$
 \begin{align*}
+\gamma(k) &= \sigma^2 \sum_{i = 0}^\infty b_i b_{i+k} \\
+&= \sigma^2 a^k \sum_{i = 0}^\infty a^{2i} \\
+&= \sigma^2 \frac{a^{|k|}}{1-a^2} =: r a^{|k|} &\text{allgemeine Lösung }\forall k \in \mathbb Z
 \end{align*}
+
+%c
+\item 
+\begin{itemize}
+\item $h = 1, k = 1$
+$$
+c = \gamma_1^1 \cdot \Gamma_1^{-1} = \gamma(1) \cdot \gamma(0)^{-1} = a
+$$$$
+\sigma_{1,1}^2 = \gamma(0) - c\Gamma_1 c' = r(1-a^2) = \sigma^2
+$$
+
+\item $h = 2, k = 1$
+$$
+c = \gamma_2^1 \cdot \Gamma_1^{-1} = \gamma(2) \cdot \gamma(0)^{-1} = a^2
+$$$$
+\sigma_{2,1}^2 = \gamma(0) - c\Gamma_1 c' = r(1-a^4) = r(1-a^2)(1+a^2) = \sigma^2(1+a^2)
+$$
+
+Zwischenrechnung: 
+\begin{align*}
+\Gamma_2 &= \begin{pmatrix}
+\gamma(0) & \gamma(1) \\
+\gamma(1) & \gamma(0)
+\end{pmatrix} \\
+&= r\begin{pmatrix}
+1 & a \\
+a & 1
+\end{pmatrix} \\
+\Gamma_2^{-1} &= \frac{1}{r(1 - a^2)} \begin{pmatrix}
+1 & -a \\
+-a & 1
+\end{pmatrix} \\
+\end{align*}
+
+\item $h = 1, k = 2$
+$$
+c = \gamma_1^2 \cdot \Gamma_2^{-1} =  (a, a^2) \cdot \frac{1}{1 + a^2}\begin{pmatrix}
+1 & -a \\
+-a & 1
+\end{pmatrix} = (\frac{a-a^3}{1-a^2}, 0) = (a, 0)
+$$$$
+\sigma_{1,2}^2 = \gamma(0) - c\Gamma_2 c' = r(1-a^2) = \sigma^2
+$$
+
+\item $h = 2, k = 2$
+$$
+c = \gamma_2^2 \cdot \Gamma_2^{-1} =  (a^2, a^3) \cdot \frac{1}{1 - a^2}\begin{pmatrix}
+1 & -a \\
+-a & 1
+\end{pmatrix} = (\frac{a^2-a^4}{1-a^2}, 0) = (a^2, 0)
+$$$$
+\sigma_{2,2}^2 = \gamma(0) - c\Gamma_2 c' = r(1-a^4) = r(1-a^2)(1+a^2) = \sigma^2(1+a^2)
+$$
+
+\end{itemize}
+
+
+
+
+
+
+
+
+
 \end{enumerate}
 
-%03
-\item bla
-\begin{enumerate}
-%a
-\item a
-\begin{align*}
-\end{align*}
 
-%b
-\item b
-\begin{align*}
-\end{align*}
-\end{enumerate}
 
-%04
-\item bla
-\begin{enumerate}
-%a
-\item a
-\begin{align*}
-\end{align*}
-
-%b
-\item b
-\begin{align*}
-\end{align*}
-\end{enumerate}
-
-%05
-\item bla
-\begin{enumerate}
-%a
-\item a
-\begin{align*}
-\end{align*}
-
-%b
-\item b
-\begin{align*}
-\end{align*}
-\end{enumerate}
 
 \end{enumerate}
 
