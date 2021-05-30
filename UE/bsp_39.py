@@ -13,11 +13,15 @@ gamma = np.array((1.83,
 # gamma[h:h+k] == c @ GAMMA[0:k]
 def prognose(h, k):
     GAMMA = lin.toeplitz(gamma[0:k])
-    return gamma[h:h+k] @ lin.inv(GAMMA)
+    c = gamma[h:h+k] @ lin.inv(GAMMA)
+    err = gamma[0] - c @ GAMMA @ c.T
+    return c, err
 
 print("\\begin{table}")
-print("h", "k", *[f"c_{i}" for i in range(1,6)], sep = " & ", end = " \\\\\n")
+print("h", "k", "\\sigma_{h,k}^2", *[f"c_{i}" for i in range(1,6)], sep = " & ", end = " \\\\\n")
 for h, k in zip((1,3,5,1,3,5), (1,1,1,5,5,5)):
-    c = prognose(h, k)
-    print(h, k, *[f"{cc:1.3f}" for cc in c], sep = " & ", end = " \\\\\n")
+    c, err = prognose(h, k)
+    print(h, k, f"{err:1.3f}", *[f"{cc:1.3f}" for cc in c], sep = " & ", end = " \\\\\n")
 print("\\end{table}")
+
+
