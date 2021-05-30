@@ -94,7 +94,7 @@ $h$ & $k$ & $\sigma_{h,k}^2$ & $c_1$ & $c_2$ & $c_3$ & $c_4$ & $c_5$ \\ \hline
 
 Wenn $h>q$, dann ist ja $\gamma_h^k = \vec0$ und damit ist $c \Gamma_k = \gamma_h^k = 0$ ein homogenes Gleichungsystem. Ein Solches hat immer die Nulllösung als Lösung. Wegen der Eindeutigkeit, die der Projektionssatz garantiert, ist damit $\hat x_{t+h} = c \cdot x_t^k = 0$. \qed
 
-
+\newpage
 %40
 \item $x_t = \epsilon_t - \epsilon_{t-1}$
 $$
@@ -102,7 +102,7 @@ $$
 $$
 \begin{enumerate}
 %a
-\item 
+\item
 \begin{align*}
 \tilde u_{t+1}^{(k)} :\hspace{-0.3em}&= x_{t+1} - \tilde x_{t+1}^{(k)} \\
 &= x_{t+1} + \frac{1}{k+1} (k x_t + (k-1)x_{t-1} + \ldots + 1 x_{t+1-k}) \\
@@ -166,7 +166,7 @@ Nun zeigen wir, dass $\limm z_k = z$ wie in Bsp. 35:
 &= \lim_{k\to\infty} \frac{\sigma^2}{k+1} \\
 &= 0
 \end{align*}
-
+\newpage
 \item Orthogonalitätsbedingung: Es reicht zu zeigen, dass $u$ orthogonal auf alle Basisvektoren steht, i.e. $\forall j \leq t : u\perp x_j$.
 \begin{align*}
 \langle u, x_j \rangle &= \E{u\cdot x_j} \\
@@ -236,7 +236,7 @@ a & 1
 
 \item $h = 1, k = 2$
 $$
-c = \gamma_1^2 \cdot \Gamma_2^{-1} =  (a, a^2) \cdot \frac{1}{1 + a^2}\begin{pmatrix}
+c = \gamma_1^2 \cdot \Gamma_2^{-1} =  (a, a^2) \cdot \frac{1}{1 - a^2}\begin{pmatrix}
 1 & -a \\
 -a & 1
 \end{pmatrix} = (\frac{a-a^3}{1-a^2}, 0) = (a, 0)
