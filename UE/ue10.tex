@@ -41,11 +41,11 @@
 
 \begin{document}
 \author{Florian Bogner \& Alexander Palmrich}
-\title{Stochastische Prozesse - Übung 0}
+\title{Stochastische Prozesse - Übung 10}
 \maketitle
 
 \begin{enumerate}
-\setcounter{enumi}{00}
+\setcounter{enumi}{42}
 
 %%für ein Bild das copy-pasten und reinkommentieren
 %\begin{figure}[h!]
@@ -55,76 +55,149 @@
 %\caption{TODO Beschreibung des Bildes}
 %\end{figure}
 
-%01
-\item bla
+%43
+\item Irrfahrt mit Drift: $\alpha$ ist der Startpunkt, $\beta$ ist die Driftgeschwindigkeit
 \begin{enumerate}
 %a
-\item a
+\item Rekursionsgleichung:
 \begin{align*}
-\end{align*}
-
+x_t &\stackrel{!}{=} \beta + x_{t-1} + \epsilon_t \\
+&= \beta + \alpha + \beta(t-1) + \sum_{k=1}^{t-1} \epsilon_k + \epsilon_t &\text{Def. von } x_{t-1} \\
+&= \alpha + \beta t + \sum_{k=1}^t \epsilon_k &\text{Distributiv- u. Assozativgesetz} \\
+&= x_t  &\text{Def. von } x_t
+\end{align*} \qed
 %b
-\item b
+\item Erwartungswert und ACF:
 \begin{align*}
+\E{x_t} &= \E{\alpha + \beta t + \sum_{k=1}^t \epsilon_k} \\
+&= \alpha + \beta t + \sum_{k=1}^t \E{\epsilon_k} \\
+&= \alpha + \beta t + 0 \\ \\
+\gamma(t, s) &= \Cov{x_t, x_s} \\
+&= \Cov{\alpha + \beta t + \sum_{k=1}^t \epsilon_k, \alpha + \beta s + \sum_{l=1}^s \epsilon_l} \\
+&= \Cov{\sum_{k=1}^t \epsilon_k, \sum_{l=1}^s \epsilon_l} &\text{Streichen der determ. Terme}\\
+&= \sum_{k=1}^t \sum_{l=1}^s \Cov{\epsilon_k, \epsilon_l} \\
+&= \sum_{k=1}^t \sum_{l=1}^s \delta_{k,l} \sigma^2 \\
+&= \min(t,s) \sigma^2
 \end{align*}
+Offensichtlich hängt $\gamma(t,s)$ nicht nur von $t-s$ ab, also ist $(x_t)$ nicht stationär.
+%c
+\item Wir zeigen, dass die optimale $h$-Schrittprognose aus $k$ Werten gleich $\hat x_{t+h} = \beta h + x_t$ ist.
+\begin{itemize}
+\item Span-Bedingung: Offensichtlich ist $\hat x_{t+h}$ eine Linearkombination aus $1$ und $x_t$ und damit in $\mathbb M := \spann\{1, x_t, \hdots, x_{t+1-k}\}$.
+\item Orthogonalitäts-Bedingung: 
+\begin{align*}
+\hat u_{t+h} &= x_{t+h} - \hat x_{t+h} \\
+&= x_{t+h} - \beta h - x_t \\
+&= \alpha + \beta (t+h) + \sum_{k=1}^{t+h}  \epsilon_k - \beta h - \alpha - \beta t - \sum_{k=1}^t \epsilon_k \\
+&= \sum_{k=t+1}^{t+h} \epsilon_k
+\end{align*}
+Offensichtlich gilt $\langle 1, \hat u_{t+h} \rangle = 0$. $\hat u_{t+h}$ ist also nur abhängig von den $\epsilon_k$ für $k > t$, während die $x_s$ nur von den $\epsilon_l$ für $l \leq s \leq t$ abhängen. Damit sind sie unkorreliert, bzw. in der Sprache des Hilbertraums: $u_{t+h}$ ist orthogonal auf die Basis von $\mathbb M$ und damit orthogonal auf ganz $\mathbb M$.
+\end{itemize}
+\qed
 \end{enumerate}
 
 
-%02
-\item bla
-\begin{enumerate}
-%a
-\item a
+%44
+\item $(x_t)$ ist zentrierter stationärer Prozess mit $\gamma_x(k) = ca^{|k|}$ mit $c>0, a\neq0, |a|<1$.\footnote{Der Prozess aus Bsp. 42 ist ein solcher Prozess mit $c := \frac{\sigma^2}{1-a^2}$} Wir betrachten $y_t := x_t - bx_{t-1}$.
 \begin{align*}
+\E{y_t} &= \E{x_t - bx_{t-1}} \\
+&= \E{x_t} - b\E{x_{t-1}} \\
+&= 0 \\ \\
+\gamma_y(k) &= \Cov{y_t, y_{t+k}} \\
+&= \Cov{x_t - bx_{t-1}, x_{t+k} - bx_{t-1+k}} \\
+&= \Cov{x_t, x_{t+k}} - b \Cov{x_{t-1}, x_{t+k}} - b \Cov{x_t, x_{t-1+k}} + b^2 \Cov{x_{t-1}, x_{t-1+k}} \\
+&= \gamma_x(k) - b\gamma_x(k+1) - b\gamma_x(k-1) + b^2 \gamma_x(k) \\
+&= \left(1+b^2\right)\gamma_x(k) - b^2\left(\gamma_x(k+1) + \gamma_x(k-1)\right) \\
+&= c\left(\left(1+b^2\right)a^{|k|} - b^2\left(a^{|k+1|} + a^{|k-1|}\right)\right)
+\end{align*}
+\begin{align*}
+&\text{Angenommen }k \neq 0 &\text{Angenommen }k = 0 \\
+&= ca^{|k|}\left(1+b^2 - b^2\left(a + a^{-1}\right)\right) &= c\left(1+b^2 - b^2\left(a + a\right)\right)\\
+&= ca^{|k|}\left(1 + b^2\left(1 - a - a^{-1}\right)\right) &= c\left(1 + b^2\left(1 - 2a\right)\right) \\
+&\text{Angenommen }b = a \\
+&= ca^{|k|}\left(1 + a^2 - a^3 - a\right) &= c\left(1 + a^2 - 2a^3\right)\\
+&= ca^{|k|} (1 + a^2) (1-a) \\
+&\text{Angenommen }b = a^{-1} \\
+&= ca^{|k|}\left(1 + a^{-2} - a^{-1} - a^{-3}\right) &= c\left(1 + a^{-2} - 2a^{-1}\right)\\
+&= ca^{|k|}(1 + a^{-2})(1-a^{-1}) &= c(1-a^{-1})^2
 \end{align*}
 
-%b
-\item b
+
+%45
+\item Sie $(x_t)$ stationär. Wir betrachten $y_t = x_t - x_{t-1}$:
+\begin{enumerate}
+%a
+\item Erwartungswert:
 \begin{align*}
+\E{y_t} &= \E{x_t} - \E{x_{t-1}} \\
+&= \E{x_t} - \E{x_t} &(x_t)\text{ stationär} \\
+&= 0
+\end{align*}
+%b
+\item Autokovarianzfunktion: siehe Bsp 44 mit $b := 1$
+\begin{align*}
+\gamma_y(k) &= 2\gamma_x(k) - \gamma_x(k-1) - \gamma_x(k+1)
+\end{align*}
+%c
+\item Aus der absoluten Summierbarkeit folgt, dass $\lim_{n\to\infty}\gamma_x(n) = 0$.
+\begin{align*}
+\sum_{k = -\infty}^\infty \gamma_y(k) &= \lim_{n\to\infty} \sum_{k = -n}^n \gamma_y(k) \\
+&= \lim_{n\to\infty} \sum_{k = -n}^n 2\gamma_x(k) - \gamma_x(k-1) - \gamma_x(k+1) \\
+&= \lim_{n\to\infty} -\gamma_x (-n-1) + \gamma_x(-n) + \gamma_x(n) - \gamma_x(n+1) \\
+&= \lim_{n\to\infty} 2 (\gamma_x(n) - \gamma_x(n+1)) \\
+&= 0
 \end{align*}
 \end{enumerate}
 
-%03
-\item bla
+%46
+\item $AR(1)$ System: $x_t = ax_{t-1} + \epsilon_t$ für $|a| < 1, a \neq 0$ und $(\epsilon_t) \sim WN(\sigma^2 > 0)$.
+$$s_t := x_t^{(s)} = \sum_{j\geq0} a^j\epsilon_{t-j}$$
+ist eine stationäre Lösung. Sie ist stationär, weil sie ein $MA(\infty)$-Prozess ist und die Systemgleichung erfüllt:
+\begin{align*}
+s_t &\stackrel{!}{=} a s_{t-1} + \epsilon_t \\
+&= a \sum_{j\geq0} a^j\epsilon_{t-1-j} + \epsilon_t &\text{Indexshift: } i := j+1\\
+&= a \sum_{i\geq1} a^{i-1}\epsilon_{t-i} + \epsilon_t \\
+&= \sum_{i\geq1} a^i \epsilon_{t-i} + \epsilon_t \\
+&= \sum_{i\geq0} a^i \epsilon_{t-i} = s_t
+\end{align*}
+
 \begin{enumerate}
 %a
-\item a
+\item Sei $y_t := x_t^{(1)}$ ein Prozess. z.z.: $y_t$ ist eine Lösung genau dann wenn $y_t = s_t + a^t z$, wobei $z$ eine beliebige Zufallsvariable ist.
+\begin{itemize}
+\item[``$\Rightarrow$''] Wir definieren $z := y_0 - s_0$. Per Definition erfüllen $y_t$ und $s_t$ beide die Systemgleichung. Wir können diese voneinander abziehen und die zeitverschobenen Varianten der resultierenden Gleichung einsetzen: (oBdA: $t > 0$)
 \begin{align*}
+y_t - s_t &= a(y_{t-1}-s_{t-1}) \\
+&= a^2(y_{t-2}-s_{t-2}) \\
+&= \ldots \\
+&= a^t(y_0-s_0) \\
+&= a^t z
 \end{align*}
+Nachdem man $s_t$ rüberaddiert, erhält man das gewünschte. Im Fall $t < 0$ muss man die Substitutionen einfach in die andere Zeitrichtung machen.
+\item[``$\Leftarrow$''] Wir müssen zeigen, dass $y_t$ die Systemgleichung erfüllt.
+\begin{align*}
+y_t &\stackrel{!}{=} ay_{t-1} + \epsilon_t \\
+&= a(s_{t-1} + a^{t-1}z) + \epsilon_t \\
+&= as_{t-1} + \epsilon_t + a^t z \\
+&= s_t + a^t z & s_t \text{ erfüllt Systemgl.} \\
+&= y_t
+\end{align*}
+\end{itemize} \qed
 
 %b
-\item b
+\item Sei $y_t = s_t + a^t z$ also Lösung. z.z.: $y_t$ ist stationär genau dann wenn $z = 0$
+\begin{itemize}
+\item[``$\Rightarrow$''] Aus der Stationärität folgt, dass $\|y_t\|$ sowie $\|s_t\|$ konstant sind. Wie im Hinweis verwenden wir die \emph{umgekehrte} Dreiecksungleichung:
 \begin{align*}
+\|y_t\| = \|s_t + a^t z\| \geq \|a^t z\| - \|s_t\|  \\
+\Rightarrow \|a^t z\| \leq \|y_t\| + \|s_t\|  := C
 \end{align*}
+Da für sehr negative $t$ der Kooeffizient $a^t$ beliebig groß werden kann muss $\|z\| = 0$ sein und damit $z = 0$.
+\item[``$\Leftarrow$''] Wenn $z = 0$, dann $y_t = s_t$ und damit trivialerweise stationär.
+\end{itemize}\qed
 \end{enumerate}
 
-%04
-\item bla
-\begin{enumerate}
-%a
-\item a
-\begin{align*}
-\end{align*}
 
-%b
-\item b
-\begin{align*}
-\end{align*}
-\end{enumerate}
-
-%05
-\item bla
-\begin{enumerate}
-%a
-\item a
-\begin{align*}
-\end{align*}
-
-%b
-\item b
-\begin{align*}
-\end{align*}
-\end{enumerate}
 
 \end{enumerate}
 
