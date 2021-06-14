@@ -1,0 +1,145 @@
+\documentclass[a4paper,11pt,notitlepage,fullpage]{article}
+%\documentclass{report}
+
+\usepackage{fullpage}
+\usepackage[utf8]{inputenc}
+%\usepackage[ngerman]{babel}
+%\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{bbm}
+%\usepackage{algorithm}
+%\usepackage{algpseudocode}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hhline}
+\usepackage{amsthm}
+\usepackage{cite}
+\usepackage{wrapfig}
+\usepackage{hyperref}
+\usepackage{titling}
+\usepackage{color}
+
+\setlength{\droptitle}{-60pt}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\p}{\mathbb P}
+\newcommand{\pp}[1]{\mathbb P\left[#1\right]}
+\newcommand{\E}[1]{\mathbb E\left[#1\right]}
+\newcommand{\V}{\mathbb V}
+\newcommand{\Vv}[1]{\mathbb V\left[#1\right]}
+\newcommand{\Cov}[1]{\mathbb Cov\left[#1\right]}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\ind}{\mathbbm{1}}
+\newcommand{\indd}[1]{\mathbbm{1}_{#1}}
+\newcommand{\norm}[2]{\left|\left|{#1}\right|\right|_{#2}}
+\DeclareMathOperator*{\limm}{l.\hspace{-0.18em}i.\hspace{-0.19em}m}
+\DeclareMathOperator*{\spann}{span}
+
+\begin{document}
+\author{Florian Bogner \& Alexander Palmrich}
+\title{Stochastische Prozesse - Übung 11}
+\maketitle
+
+\begin{enumerate}
+\setcounter{enumi}{46}
+
+%%für ein Bild das copy-pasten und reinkommentieren
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[width=0.9\textwidth]{gfx/bildname.png}
+%\label{fig1}
+%\caption{TODO Beschreibung des Bildes}
+%\end{figure}
+
+%01
+\item Laut Folie 129 ist das AR-Polynom $q(z) := 1 - a z^4 \neq 0$ für $|z| \leq 1$ da $|a| < 1$. Damit ist die Stabilitätsbedingung erfüllt. Wir tanzen die Vorlesungsfolie 110 nach: 
+\begin{align*}
+x_t &= a x_{t-4} + \epsilon_t \\
+&= a^2 x_{t-8} + a \epsilon_{t-4} + \epsilon_t \\
+&= a^3 x_{t-12}+ a^2 \epsilon_{t-8} + a \epsilon_{t-4} + \epsilon_t \\
+&= \vdots \\
+&= \limm_{k \to \infty}\left( a^k x_{t-4k} + \sum_{j=0}^{k-1}a^j \epsilon_{t-4j} \right) \\
+&= 0 + \sum_{j\geq0} a^j \epsilon_{t-4j}
+\end{align*}
+Damit haben wir unserern Lösungskandiaten gefunden. Probe:
+\begin{align*}
+x_t = \sum_{j\geq0} a^j \epsilon_{t-4j} = \epsilon_t + a\sum_{j=0}^{\infty} a^j \epsilon_{t-4-4j} = a x_{t-4} + \epsilon_t
+\end{align*}
+Hurra. ACF:
+\begin{align*}
+\gamma(k) &= \langle x_t, x_{t-k} \rangle \\
+&= \sum_{j\geq0} \sum_{i\geq0} \langle a^j \epsilon_{t - 4j}, a^{i-k} \epsilon_{t - k - 4i}\rangle \\
+&= \sum_{j\geq0} \sum_{i\geq0} a^{j+i-k} \langle \epsilon_{t - 4j}, \epsilon_{t - k - 4i}\rangle \\
+&= \sum_{j\geq0} \sum_{i\geq0} a^{j+i-k} \delta_{4j}^{k+4i} \sigma^2 \\
+&= \begin{cases}
+0 & k \neq 0 \mod 4 \\
+\sigma^2 \sum_{j\geq0} a^{2j-k} & k = 0 \mod 4 \\
+\end{cases} \\
+&= \begin{cases}
+0 & k \neq 0 \mod 4 \\
+\sigma^2 \frac{a^{-|k|}}{1 - a^2} & k = 0 \mod 4 \\
+\end{cases} \\
+\end{align*}
+
+
+
+%02
+\item Das AR-Polynom von $x_t = 0.1 x_{t-1} - 0.2 x_{t-2} + 0.3 x_{t-3} + \epsilon_t$ ist $$q(z) = 0.1 z - 0.2 z^2 + 0.3 z^3 + 1$$.
+Wir wenden die umgekehrte Dreiecksungleichung an und schätzen $|z| \leq 1$ ab:
+$$|q(z)| \geq -(0.1 + 0.2 + 0.3) + 1 = 0.4$$
+Damit hat $q(z)$ keine Nullstellen in der Einheitskreisscheibe und die Stabilitätsbedingung ist erfüllt.
+\begin{align*}
+\end{align*}
+
+
+%03
+\item bla
+\begin{enumerate}
+%a
+\item a
+\begin{align*}
+\end{align*}
+
+%b
+\item b
+\begin{align*}
+\end{align*}
+\end{enumerate}
+
+%04
+\item bla
+\begin{enumerate}
+%a
+\item a
+\begin{align*}
+\end{align*}
+
+%b
+\item b
+\begin{align*}
+\end{align*}
+\end{enumerate}
+
+%05
+\item bla
+\begin{enumerate}
+%a
+\item a
+\begin{align*}
+\end{align*}
+
+%b
+\item b
+\begin{align*}
+\end{align*}
+\end{enumerate}
+
+\end{enumerate}
+
+
+
+\end{document}
