@@ -91,24 +91,118 @@ Hurra. ACF:
 \item Das AR-Polynom von $x_t = 0.1 x_{t-1} - 0.2 x_{t-2} + 0.3 x_{t-3} + \epsilon_t$ ist $$q(z) = 0.1 z - 0.2 z^2 + 0.3 z^3 + 1$$.
 Wir wenden die umgekehrte Dreiecksungleichung an und sch채tzen $|z| \leq 1$ ab:
 $$|q(z)| \geq -(0.1 + 0.2 + 0.3) + 1 = 0.4$$
-Damit hat $q(z)$ keine Nullstellen in der Einheitskreisscheibe und die Stabilit채tsbedingung ist erf체llt.
-\begin{align*}
-\end{align*}
+Damit hat $q(z)$ keine Nullstellen in der Einheitskreisscheibe und die Stabilit채tsbedingung ist erf체llt. Mit etwas Python-Code geht das $\bar b$ berechnen ganz schnell:
+\begin{verbatim}
+l = 6
+p = 3
+a = (0, +0.1, -0.2, +0.3)
+b = [0]*l
+
+b[0] = 1
+for k in range(1, l):
+    b[k] = sum([a[i] * b[k-i] for i in range(1, p+1) if k-i >= 0])
+
+print("\nb = ", b)
+
+###############################
+sigmasq = 1
+import numpy as np
+from scipy import linalg as lin
+from itertools import product
+
+k = 6
+A = np.eye(k)
+for i, j in product(range(k), range(k)):
+    if 0 < i+j <= p:
+        A[i,j] -= a[i+j]
+    if j > 0 and 0 < i-j <= p:
+        A[i,j] -= a[i-j] 
+b = np.array([sigmasq]+[0]*(k-1))
+y = np.linalg.solve(A, b)
+
+print("\nA := ", A)
+print("\ngamma = ", y)
+\end{verbatim}
+Das liefert uns das Erbebnis:
+\begin{verbatim}
+b =  [1, 0.1, -0.19, 0.261, 0.0941, -0.09978999999999999]
+
+A :=  [[ 1.  -0.1  0.2 -0.3  0.   0. ]
+ [-0.1  1.2 -0.3  0.   0.   0. ]      
+ [ 0.2 -0.4  1.   0.   0.   0. ]      
+ [-0.3  0.2 -0.1  1.   0.   0. ]      
+ [ 0.  -0.3  0.2 -0.1  1.   0. ]
+ [ 0.   0.  -0.3  0.2 -0.1  1. ]]
+
+gamma =  [ 1.1402027   0.04222973 -0.21114865  0.3125      0.08614865 -0.11722973]
+\end{verbatim}
 
 
 %03
-\item bla
-\begin{enumerate}
-%a
-\item a
-\begin{align*}
-\end{align*}
+\item Mit der Funktion aus Bsp. 39 ist der schwerste Teil schon gemacht:
+\begin{verbatim}
+import numpy as np
+from scipy import linalg as lin
 
-%b
-\item b
-\begin{align*}
-\end{align*}
-\end{enumerate}
+gamma = np.array((8.952,
+                  7.870,
+                  7.083,
+                  6.562,
+                  6.036,
+                  5.537,
+                  5.086,
+                  4.673,
+                  4.292,
+                  3.942))
+
+def prognose(h, k):
+    GAMMA = lin.toeplitz(gamma[0:k])
+    c = gamma[h:h+k] @ lin.inv(GAMMA)
+    err = gamma[0] - c @ GAMMA @ c.T
+    return c, err
+
+for p in range(1, 10):
+    a, err = prognose(1, p)
+    print(f"{p=}: {err=}")
+    print(f"{a=}\n")
+\end{verbatim}
+resultiert im Output:
+\begin{verbatim}
+p=1: err=2.033222073279715
+a=array([0.87913315])
+
+p=2: err=2.0199579592870975
+a=array([0.80812612, 0.08076937])
+
+p=3: err=1.999679919038699
+a=array([ 8.00033512e-01, -2.00035381e-04,  1.00194025e-01])
+
+p=4: err=1.99967948648895
+a=array([ 8.00080111e-01, -2.00128416e-04,  1.00566114e-01, -4.65090837e-04])
+
+p=5: err=1.9996794142110002
+a=array([ 8.00080199e-01, -2.19247822e-04,  1.00566152e-01, -6.17200292e-04,
+        1.90117781e-04])
+
+p=6: err=1.999679385494888
+a=array([ 8.00080177e-01, -2.19173860e-04,  1.00554100e-01, -6.17174019e-04,
+        9.42404041e-05,  1.19834708e-04])
+
+p=7: err=1.9996792602099633
+a=array([ 8.00080147e-01, -2.19197449e-04,  1.00554255e-01, -6.42343195e-04,
+        9.42952643e-05, -8.04292185e-05,  2.50304822e-04])
+
+p=8: err=1.9996790975075136
+a=array([ 8.00080218e-01, -2.19220391e-04,  1.00554282e-01, -6.42526420e-04,
+        1.22977786e-04, -8.04917434e-05,  4.78523071e-04, -2.85244233e-04])
+
+p=9: err=1.9996790877197732
+a=array([ 8.00080198e-01, -2.19186913e-04,  1.00554276e-01, -6.42517816e-04,
+        1.22932833e-04, -7.34567899e-05,  4.78507734e-04, -2.29269222e-04,
+       -6.99617490e-05])
+\end{verbatim}
+Wir sehen dass sich nach $p=3$ der Fehler nicht wirklich 채ndert und die hinzukommenden Koeffizient kleiner sind als die Genauigkeit, mit der uns $\gamma$ gegeben wurde. Der wahre Prozess ist also ein $AR(3)$-Prozess mit $x_t = 0.8x_{t-1} - 0.1x_{t-3}$ und $\sigma^2 = 2$.
+
 
 %04
 \item bla
@@ -124,19 +218,7 @@ Damit hat $q(z)$ keine Nullstellen in der Einheitskreisscheibe und die Stabilit�
 \end{align*}
 \end{enumerate}
 
-%05
-\item bla
-\begin{enumerate}
-%a
-\item a
-\begin{align*}
-\end{align*}
 
-%b
-\item b
-\begin{align*}
-\end{align*}
-\end{enumerate}
 
 \end{enumerate}
 
