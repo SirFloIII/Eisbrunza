@@ -1,0 +1,144 @@
+\documentclass[a4paper,11pt,notitlepage,fullpage]{article}
+%\documentclass{report}
+
+\usepackage{fullpage}
+\usepackage[utf8]{inputenc}
+%\usepackage[ngerman]{babel}
+%\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{bbm}
+%\usepackage{algorithm}
+%\usepackage{algpseudocode}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hhline}
+\usepackage{amsthm}
+\usepackage{cite}
+\usepackage{wrapfig}
+\usepackage{hyperref}
+\usepackage{titling}
+\usepackage{color}
+
+\setlength{\droptitle}{-60pt}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\p}{\mathbb P}
+\newcommand{\pp}[1]{\mathbb P\left[#1\right]}
+\newcommand{\E}[1]{\mathbb E\left[#1\right]}
+\newcommand{\V}{\mathbb V}
+\newcommand{\Vv}[1]{\mathbb V\left[#1\right]}
+\newcommand{\Cov}[1]{\mathbb Cov\left[#1\right]}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\ind}{\mathbbm{1}}
+\newcommand{\indd}[1]{\mathbbm{1}_{#1}}
+\newcommand{\norm}[2]{\left|\left|{#1}\right|\right|_{#2}}
+\DeclareMathOperator*{\limm}{l.\hspace{-0.18em}i.\hspace{-0.19em}m}
+\DeclareMathOperator*{\spann}{span}
+
+\begin{document}
+\author{Florian Bogner \& Alexander Palmrich}
+\title{Stochastische Prozesse - Übung 12}
+\maketitle
+
+\begin{enumerate}
+\setcounter{enumi}{50}
+
+%%für ein Bild das copy-pasten und reinkommentieren
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[width=0.9\textwidth]{gfx/bildname.png}
+%\label{fig1}
+%\caption{TODO Beschreibung des Bildes}
+%\end{figure}
+
+%01
+\item Zettel
+
+%02
+\item Zettel
+
+%03
+\item Zettel
+
+%04
+\item Wir betrachten das AR(2) Polynom (mit einer Variablenumbenennung) $$q(z) = 1 - az - bz^2$$ welches man durch $-b$ dividieren und umordnen kann. $$q(z) = z^2 + \frac{a}{b}z - \frac{1}{b}$$ Für die Stabilitätsbedingung sind wir interessiert an den Nullstellen. Die kleine Lösungsformel liefert uns eben diese. 
+\begin{align*}
+z_{1,2} &= -\frac{a}{2b} \pm \sqrt{\frac{a^2}{4b^2} + \frac{1}{b}} \\
+&= -\frac{a}{2b} \pm \sqrt{\frac{a^2 + 4b}{4b^2}} \\
+&= \frac{-a \pm \sqrt{a^2 + 4b}}{2b}
+\end{align*}
+Je nach Determinante $a^2+4b$ können nun die Nullstellen beide reell oder ein komplex konjungiertes Paar sein.
+\begin{itemize}
+\item Fall 1: $a^2 + 4b \geq 0$:
+\begin{itemize}
+\item[``$\Rightarrow$''] Das Polynom muss auf dem abgeschlossen Einheitsintervall positiv sein, also insbesondere auch an den Endpunkten 1 und -1. Daraus folgt jeweils die zweite und dritte Ungleichung:
+\begin{align*}
+q(1) = 1 - a - b > 0 &\Leftrightarrow b < 1 - a \\
+q(-1) = 1 + a - b > 0 &\Leftrightarrow b < 1 + a \\
+\end{align*}
+Man kann das Polynom auch in Linearfaktoren faktorisieren:
+$$q(z) = (z-z_1)(z-z_2) = z^2 - (z_1+z_2)z + z_1z_2 = z^2 + \frac{a}{b}z - \frac{1}{b}$$
+ergo
+$$-\frac{1}{b} = z_1 z_2$$
+Da beide Nullstellen betragsweise größer 1 sein müssen, muss auch ihr Produkt betragsweise größer 1 sein:
+$$\left|-\frac{1}{b}\right| > 1 \Rightarrow |b| < 1 \Rightarrow b > -1$$
+Damit ist auch die erste Ungeichung gezeigt.
+
+\item[``$\Leftarrow$'']
+Beweis der Kontraposition: Angenommen mindestens eine Nullstelle liegt im Intervall $[-1, 1]$. Wir unterscheiden danach wie die Nullstellen verteilt sind.
+\begin{itemize}
+\item Fall 1.1: Es liegt genau eine (einfache) Nullstelle in $(0, 1]$. Da $q(0) = 1 > 0$ und das Vorzeichen genau einmal gewechselt wird, muss aber $$q(1) = 1 - a - b \leq 0 \Rightarrow b \geq 1 - a$$ Es ist also die zweite Gleichung verletzt.
+
+\item Fall 1.2: Es liegt genau eine (einfache) Nullstelle in $[-1, 0)$. Selbes Spiel mit $q(-1)$, dritte Gleichung verletzt.
+
+\item Fall 1.3: Es liegen beide Nullstellen (oder eine doppelte) in $(0, 1]$ oder beide in $[-1, 0)$. Deren Produkt ist liegt also definitiv in $(0, 1]$.
+$$0 < z_1 z_2 = -\frac{1}{b} \leq 1 \Rightarrow b < 0 \wedge b \leq -1$$
+In diesem Fall ist also die dritte Gleichung verletzt.
+
+\end{itemize}
+
+\end{itemize}
+
+\item Fall 2: $a^2 + 4b < 0$: \\
+Die Nullstellen sind also echt komplexe Zahlen und konjungiert zueinander. Sie haben insbesondere den gleichen Betrag und
+$$|z_1|^2 = z_1 \bar z_1 = z_1 z_2 = -\frac{1}{b}$$
+Man beachte das $a^2 + 4b < 0$ impliziert, dass $b < 0$. Damit ergibt sich:
+$$|z_1|^2 > 1 \Leftrightarrow b > -1$$
+Die Stabilitätsbedingung ist in diesem Fall also äquivalent zur ersten Gleichung. Die beiden anderen Gleichungen sind in diesem Fall allgemeingültig. Beweis durch Hinschauen.
+%\begin{align*}
+%a^2 + 4b &< 0 \\
+%b < -\frac{a^2}{4} \leq 1-a
+%\end{align*}
+\end{itemize}
+\qed
+
+\end{enumerate}
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
