@@ -1,0 +1,47 @@
+     ______________
+    /             /^\
+    | Cheatsheet: | /
+    >  ....  ..   |
+    |             |
+    |  .- .-.. .  <
+    >       -..-  |
+   _|_____..____  |
+   \___.._______\_/
+
+Filtration
+Wiener Prozess (3 Charakterisierungen)
+Smartingal
+
+M2-Raum
+Ito-Integral
+Ito-Isometrie
+Ito-Prozess (in zwei Variationen)
+Ito-Formel Light
+Ito-Formel (achtung, extra Term)
+
+Markovkette
+kommuniziert, Kommunikationsklasse,
+abgeschlossen, absorbierend, irreduzibel
+Treffzeit
+System für Trefferwhs.
+System für erwartete Trefferzeiten
+rekurrent vs. transient
+
+stationär
+ACF gamma
+White-Noise
+MA(q) & MA(infty)
+l.i.m
+Projektionsatz
+Prognose aus ""- und un-endlicher Vergangenheit
+
+AR(p) System
+Stabilitätsbedingung
+MA(infty) Darstellung
+Yule-Walker Gleichungen
+
+ARMA(p,q) Prozesse
+AR und MA Polynom
+Stabilitäts-, Miniphase-, Minimalitätsbedingung
+Folgerungen dieser
+verallgemeinerte Yule-Walker Gleichungen
