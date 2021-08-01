@@ -9,8 +9,8 @@
    \___.._______\_/
 
 Filtration
-Wiener Prozess (3 Charakterisierungen)
 Smartingal
+Wiener Prozess (2 Charakterisierungen)
 
 M2-Raum
 Ito-Integral
